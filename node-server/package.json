@@ -1,0 +1,36 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "main": "server.js",
+  "dependencies": {
+    "append-field": "^1.0.0",
+    "assign": "^0.1.7",
+    "bee-queue": "^1.2.2",
+    "body-parser": "^1.18.3",
+    "busboy": "^0.2.14",
+    "concat-stream": "^1.6.2",
+    "dateformat": "^3.0.3",
+    "express": "^4.16.3",
+    "request": "2.88.0",
+    "generate-password": "^1.4.0",
+    "jsonwebtoken": "^8.4.0",
+    "mailparser": "^2.4.3",
+    "md5": "^2.2.1",
+    "moment": "^2.23.0",
+    "mysql": "^2.16.0",
+    "nodejs": "^0.0.0",
+    "nodemailer": "^4.6.8",
+    "nodemon": "^1.18.7",
+    "object": "^0.1.1",
+    "object-assign": "^4.1.1",
+    "xtend": "^4.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
