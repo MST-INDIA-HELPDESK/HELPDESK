@@ -1,0 +1,37 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="container p-20">
+    <div class="row panel m-0 p-5 mb-10">
+        <div class="col-md-8">
+            <h4> Manage Articles </h4>
+        </div>
+        <div class="col-md-4 text-right mt-1">
+            <a href="javascript:void(0)" [routerLink]="['/dashboard/manageknowledgebase/showsubcategories/articleknowledgebase',{cat_id:catid}]" class="btn btn-primary ">
+            <i  aria-hidden="true"></i> New Article</a>
+        </div>
+    </div>
+    <div class="row m-10">
+        <div class="test">
+        	<h5>Category: {{catnm}}</h5>
+        	<h6>All articles in this category :</h6>
+    	</div>
+    </div>
+    
+    <div class="example example-well pt-10 m-0" *ngFor="let i of subcatarticles">
+		<div   id="examplePanel" class="panel mb-0">
+		    <div class="row panel-body p-20 mb-0">
+	    	<div class="col-md-11 pointer mb-0">
+	            <span class="article_title" [routerLink]="['/dashboard/manageknowledgebase/showsubcategories/articleknowledgebase',{art_id:i.id}]">
+		 			<i class="icon md-file-text" aria-hidden="true"></i> <span class="pl-2">{{i.article}}</span>
+		 		</span>
+	    	</div>
+	    	<div class="col-md-1 m-auto pointer">
+	    	    <span (click)="delarticle(i.id)" class="float-right"><i class="icon md-delete"></i></span>
+	    	</div>
+		    </div>
+	    </div>
+    </div>
+    
+    <div class="card p-10" *ngIf="message">
+        <h5>{{message}}</h5>
+    </div>
+</div><!-- container-fluid-->

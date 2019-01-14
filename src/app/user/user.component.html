@@ -1,0 +1,231 @@
+ <div class="container pt-20">
+	<div class="row">
+		<div class="col-md-12 profcontent">
+			 <div class="panel panelHeader" id="exampleTable1">
+				<div class="panel-body p-10">
+					<div class="example-wrap">
+						<div class="topTblContent">
+						<div class="row pl-10 pr-10">
+						<div class="col-md-10 col-sm-6 col-6 m-auto"><h3 class="mb-0">Users</h3></div>
+						<div class="col-md-2" [ngClass]="{'col-sm-6 col-6':userTypeId == 1 || 3,'col-sm-12 col-12':userTypeId == 2}">
+							<button *ngIf="userTypeId == 1 || userTypeId == 3" type="button" class="btn btn-primary icon md-plus adduser"  data-original-title="Add User" data-container="body" data-target="#newuser" data-toggle="modal"> Add User</button>
+							<div #AddUser class="modal fade modal-fade-in-scale-up" id="newuser" aria-hidden="true" aria-labelledby="exampleModalTitle" role="dialog" tabindex="-1">
+							  <div class="modal-dialog modal-simple">
+							  	<form #createUser="ngForm" (ngSubmit)="createUser.form.valid && addUsers(createUser.value)">
+							     <div class="modal-content">
+							        <div class="modal-header">
+							          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							            <span aria-hidden="true">×</span>
+							          </button>
+							          <div><h2 class="modal-title">Add User</h2></div>
+							        </div>
+							        <div class="modal-body form-row modalht">
+							        	<div class="form-group col-md-12">
+							        		<span class="p-3 fs-13">Type of User</span>
+								        	<ng-select class="plr-5" name="user_type" [(ngModel)] ="user_type" #utype="ngModel" [clearable]="false" required>
+												<ng-option *ngFor="let utp of userType" [value]="utp.id">{{utp.type}}</ng-option>
+											</ng-select>
+											<div *ngIf="utype.invalid && ( utype.touched)">
+								              <div *ngIf="utype.errors.required && utype.touched" class="invalid pt-10">* User Type is required</div>
+								            </div>
+										</div>
+							          <div class="form-group col-md-6">
+							            <input type="text" class="form-control empty" id="inputFName" name="first_name" [(ngModel)] ="first_name" #fn="ngModel" placeholder="First Name" required>
+							            <div *ngIf="fn.invalid && ( fn.touched)">
+								              <div *ngIf="fn.errors.required && fn.touched" class="invalid pt-10">* First name is required</div>
+								         </div>
+							          </div>
+							          <div class="form-group col-md-6">
+							            <input type="text" class="form-control empty" id="inputLName" name="last_name" placeholder="Last Name" [(ngModel)] ="last_name" #ln="ngModel" required>
+							            <div *ngIf="ln.invalid && ( ln.touched)">
+								              <div *ngIf="ln.errors.required && ln.touched" class="invalid pt-10">* Last name is required</div>
+								         </div>
+							          </div>
+							          <div class="form-group col-md-12">
+							            <input type="email" class="form-control empty" id="inputEmail" name="email" [(ngModel)] ="email" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #emaill="ngModel" placeholder="Email" required>
+							             <div *ngIf="emaill.invalid && ( emaill.touched)">
+							              <div *ngIf="emaill.errors.required && emaill.touched" class="invalid pt-10">* Email is required</div>
+							              <div *ngIf="emaill.errors?.pattern && emaill.touched" class="invalid pt-10">* Email must be a valid email address</div>
+							          </div>
+							          </div>
+							        </div>
+							        <div class="modal-footer">
+							          <button type="button" class="btn btn-primary" (click)="resetAll()" data-dismiss="modal">Close</button>
+							          <button type="submit" class="btn btn-primary">Add</button>
+							        </div>
+							   		</div>	 
+							    </form>
+							  </div>
+							</div>
+						</div>
+					</div> 
+            	</div>
+ 	    	</div>     
+          </div>
+		</div>
+		<div class="panel mb-5" id="exampleTable1">
+			<div class="panel-body">
+				<div class="example-wrap">
+					<div class="topTblContent">
+						<div class="row">
+							<div class="col-md-12 btncenter" [ngClass]="{'col-sm-12 col-12':userTypeId == 1 || 3  ,'col-sm-6 col-6':userTypeId == 2}">
+								<ul class="nav usersnav">
+								  <li class="nav-item">
+								    <a class="nav-link"  [ngClass]="{'active' : all }" (click)="getData('all')">All</a>
+								  </li>
+								  <li class="nav-item">
+								    <a class="nav-link" [ngClass]="{'active' : admin }" (click)="getData('admin')">Admins</a>
+								  </li>
+								  <li class="nav-item">
+								    <a class="nav-link" [ngClass]="{'active' : managers }" (click)="getData('managers')">Managers</a>
+								  </li>
+								  <li class="nav-item">
+								    <a class="nav-link" [ngClass]="{'active' : agent }" (click)="getData('agent')">Agents</a>
+								  </li>
+								  <li class="nav-item">
+								    <a class="nav-link" [ngClass]="{'active' : user }" (click)="getData('users')">Users</a>
+								  </li>
+								  <li class="nav-item">
+									  <form id="demo-1">
+										<input type="search" class="form-control" name="searchUser" [(ngModel)]="searchUser" (ngModelChange)="filterSearch()" placeholder="Search" autocomplete="off">
+									  </form> 
+								  </li>	  
+								</ul>
+								<form id="demo-2">
+									<input type="search" class="form-control" name="searchUser" [(ngModel)]="searchUser" (ngModelChange)="filterSearch()" placeholder="Search">
+								</form> 
+								<div class="dropdown userdropdw">
+			                      <a data-toggle="dropdown" aria-expanded="true"><i class="icon md-filter-list"></i></a>
+			                      <div class="dropdown-menu" aria-labelledby="exampleBasicDropdown" role="menu">
+			                        <a class="dropdown-item" (click)="getData('all')" role="menuitem">All</a>
+			                        <a class="dropdown-item" (click)="getData('admin')" role="menuitem">Administrators</a>
+			                        <a class="dropdown-item" (click)="getData('managers')" role="menuitem">Managers</a>
+			                        <a class="dropdown-item" (click)="getData('agent')" role="menuitem">Agents</a>
+			                        <a class="dropdown-item" (click)="getData('users')" role="menuitem">Users</a>
+			                      </div>
+			                    </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+		<div class="example1">
+	          <div class="row">
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div *ngFor="let user of filterData | paginate: { itemsPerPage: 6, currentPage: p }">
+						<div *ngIf="user.user_id !=6" id="examplePanel" class="example example-well mt-0 p-10 mb-0 noborder">
+							<div class="panel mb-0">
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-lg-1 col-md-1 col-sm-1 col-12 nopad pointer" [routerLink]="['../userprofile',user.user_id]">
+											<span class="avatar">
+												<img class="main-avatar" src="{{user.profile_pic | dynamicImgSrc}}" alt="...">
+											</span>
+										</div>
+										<div class="col-lg-4 col-md-4 col-sm-4 col-12 nopad pointer" [routerLink]="['../userprofile',user.user_id]">
+											<h5 class="m-1 mob-in pd-5">{{user.first_name}} {{user.last_name}}</h5> 
+											<span class="usertype pd-5">{{user.type}}</span>
+										</div>
+										<div class="col-lg-5 col-md-5 col-sm-4 col-12 nopad pointer" [routerLink]="['../userprofile',user.user_id]">
+											<h5 class="m-1 mob-in pd-5">{{user.company}}</h5> 
+											<span class="userphone pd-5">{{user.phone}}</span>	
+										</div>
+										<div class="col-lg-2 col-md-2 col-sm-3 col-12 nopad">
+											<div class="panel-actions">
+												<a *ngIf="user.user_id == userId" class="btn btn-sm btn-icon btn-pure btn-default on-default edit-row waves-effect waves-classic" (click)="editUser(user.user_id)" data-toggle="modal" data-original-title="Edit" data-target="#editUser"><i class="icon md-edit" aria-hidden="true"></i></a>		
+												<a *ngIf="user.user_id == userId || userTypeId == 1 || userTypeId == 3 && user.user_id != 1" (click)="deleteUser(user.user_id)" class="btn btn-sm btn-icon btn-pure btn-default on-default remove-row waves-effect waves-classic" data-toggle="tooltip" data-original-title="Remove"><i class="icon md-delete" aria-hidden="true"></i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div *ngIf="filterData==''" class="m-10">
+						<h5 class="card p-10">No Users found ....</h5>
+					</div>
+				</div>
+			</div>	
+	          
+	         <!-- Modal -->
+				<div #EditUser class="modal fade modal-fade-in-scale-up" id="editUser" aria-hidden="true" aria-labelledby="exampleModalTitle" role="dialog" tabindex="-1">
+				  <div class="modal-dialog modal-simple">
+				  	<form #updateUser="ngForm" (ngSubmit)="updateUsers(updateUser.value)">
+				      <div class="modal-content">
+				        <div class="modal-header">
+				          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				            <span aria-hidden="true">×</span>
+				          </button>
+				          <div><h2 class="modal-title">Edit User</h2></div>
+				        </div>
+				        <div class="modal-body form-row">
+				        	<div class="form-group col-md-12">
+					          	<div class="avatar-upload">
+							        <div class="avatar-edit">
+							            <input type='file' id="imageUpload" name="image" (change)="onSelectFile($event)"/>
+							            <label for="imageUpload"><i class="icon md-edit" aria-hidden="true"></i></label>
+							        </div>
+							        <div class="avatar-preview">
+							            <div id="imagePreview" *ngFor="let item of editUserData">
+							            	<span *ngIf="onSelected">
+								            	<img src="{{profile_photo | dynamicImgSrc }}">
+								            	 <!-- 1544771885323.png -->
+						            		</span>
+							            	<span *ngIf="show">
+								            	<img src="{{item.profile_pic | dynamicImgSrc }}">
+								            	 <!-- 1544771885323.png -->
+						            		</span>
+							           </div>
+							        </div>
+								</div>      
+					        </div>	
+				          <div class="form-group col-md-6">
+				            <label>First Name: </label>
+				            <input type="text" class="form-control" name="fname" [(ngModel)]="fname" placeholder="First Name" required />
+				          </div>
+				          <div class="form-group col-md-6">
+				            <label>Last Name: </label>
+				            <input type="text" class="form-control" name="lname" [(ngModel)]="lname" placeholder="Last Name" required />
+				          </div>
+				          <div class="form-group col-md-12">
+				            <label>Address: </label>
+				            <textarea class="form-control" name="address" [(ngModel)]="address" placeholder="Enter the address of this person" required></textarea>
+				          </div>
+				           <div class="form-group col-md-6">
+				            <label>Phone: </label>
+				            <input type="text" class="form-control" name="phone" [(ngModel)]="phone" placeholder="phone" required />
+				          </div>
+				          <div class="form-group col-md-6">
+				            <label>facebook: </label>
+				            <input type="text" class="form-control" name="facebook" [(ngModel)]="facebook" placeholder="facebook" required />
+				          </div>
+				          <div class="form-group col-md-6">
+				            <label>Twitter: </label>
+				            <input type="text" class="form-control" name="twitter" [(ngModel)]="twitter" placeholder="twitter" required />
+				          </div>
+				          <div class="form-group col-md-6">
+				            <label>Company: </label>
+				            <input type="text" class="form-control" name="company" [(ngModel)]="company" placeholder="Company Name" required />
+				          </div>
+				        </div>
+				        <div class="modal-footer">
+				          <button type="button" class="btn btn-primary" (click)="reset()" data-dismiss="modal">Close</button>
+				          <button type="submit" class="btn btn-primary">Save changes</button>
+				        </div>
+				      </div>
+				    </form>
+				  </div>
+				</div>
+				<!-- End Modal -->
+	       </div> 				
+		</div>
+	</div>	
+	<div class="row back p-10 mt-10 paginationControl">
+		<div class="col-12 text-right">
+			<pagination-controls class="paginationctrl" (pageChange)="p = $event"></pagination-controls>
+		</div>	
+	</div>
+</div> 

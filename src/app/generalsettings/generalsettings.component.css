@@ -1,0 +1,27 @@
+div.imagePreview {width: 100px; height: 100px; display:inline; margin-left:20px;}
+/*input#logoUpload { display: none; }*/
+.imageUpload { font-size: 16px; }
+div.imagePreview img { width: 80px; height: 80px; display:inline;}
+/*.logo-edit { cursor: pointer; display:inline; }*/
+.file-upload__label {
+    display: inline;
+    padding: 10px;
+    margin-left: 15px;
+    color: #3f51b5;
+    border: 1px solid #b5afaf;
+    transition: background .3s;
+}
+.file-upload__label:hover { cursor: pointer; }
+.logo-upload { position: relative; }
+
+.file-upload__input {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 100%;
+    opacity: 0;
+    font-size: 1;
+    right: 0;
+    top: 0;
+}

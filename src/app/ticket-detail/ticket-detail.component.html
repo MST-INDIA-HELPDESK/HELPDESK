@@ -1,0 +1,299 @@
+ <app-breadcrumb></app-breadcrumb>
+<div class="row pt-10 pb-20 ml-0 mr-0" *ngFor="let i of ticket">
+  	<div class="col-lg-4">
+        <div class="card card-shadow text-center">
+          	<div class="card-block pt-5">
+          		<h5>#{{i.id}}</h5>
+                <a class="avatar avatar-lg">
+                  <img class="main-avatar2" src="{{i.assignee_pic | dynamicImgSrc}}" alt="...">
+                 </a>
+            	<p  class="profile-job pt-2"><b> {{i.user_name  | titlecase }} </b></p>
+            	<h5 class="profile-job mt-5">{{i.subject | titlecase}}</h5>
+				<small class="profile-job">{{i.message}}</small>
+             </div>
+      	</div>
+      	<div class="card card-shadow text-center">
+          	<div class="card-block p-5">
+          		<p class="pl-5 text-left">Assigned To : </p>
+          		<div class="row">
+          			<div class="col-md-2 col-sm-2 col-2">
+          				<span *ngIf="show">
+          				<a class="avatar avatar-lg" *ngIf="updatePic;else oldPic">
+	   						<img class="main-avatar" src="{{newProfile | dynamicImgSrc}}" alt="...">
+	          			</a>
+	          			
+	          			<ng-template #oldPic>
+	          				<a class="avatar avatar-lg">
+	   							<img class="main-avatar" src="{{ assigneePic | dynamicImgSrc}}" alt="...">
+	          				</a>
+	          			</ng-template>
+	          			</span>
+	          		</div>
+	          		<div class="col-md-10 col-sm-8 col-8 text-left pl-20">
+		          		<ng-select #api  class="plr-5" [(ngModel)]="i.assignee" [clearable]="false" (change)="update('','assignee',i.assignee)"  >
+							<ng-option *ngFor="let i of agents" [value]="i.id">{{i.assignee}}</ng-option>
+							<ng-template ng-header-tmp>
+							<input style="width: 100%;line-height: 28px; color:#000; padding:4px; border:none" placeholder="Search .." type="text" (input)="api.filter($event.target.value)" />
+							</ng-template>
+						</ng-select>
+      				</div>
+	          	</div>
+	    	</div>
+      	</div>
+  		<div class="card card-shadow">
+          	<div class="card-block p-5">
+          		<span class="pl-5"> Add Tag </span>
+           		<div class="row">
+          			<div class="col-md-12 pl-20">
+		          		<ng-select  #apii class="plr-5"  [items]="tags"  [(ngModel)]="selectedTag" bindLabel="tag_name"  bindValue="id"  [multiple]="true" [clearable]="false" (change)="update(selectedTag,'tag',i.user_id)"  (remove)="onRemoveTag($event)">
+							<ng-template ng-header-tmp>
+							<input style="width: 100%;line-height: 28px; color:#000; padding:4px; border:none" placeholder="Search .." type="text" (input)="apii.filter($event.target.value)" />
+							</ng-template>
+						</ng-select>
+      				</div>
+	          	</div>
+	    	</div>
+      	</div>
+      	<div class="card card-shadow text-center">
+      		<div class="card-block text-left" >
+      			<div class="row">
+      				<div class="col-md-6">
+                		<div class="mt-5">
+					    	<span class="p-3 fs-13">Status</span>
+			    			<ng-select [items]="ticketStatus"  (change)="update(i.status,'status',i.user_id)" class="plr-5" [clearable]="false" bindLabel="status"  bindValue="id" [(ngModel)]="i.status"></ng-select>
+		   			    </div>
+                	</div>
+                	<div class="col-md-6">
+                		<div class="mt-5">
+					    	<span class="p-3 fs-13">Priority</span>
+				    		<ng-select [items]="priorities" class="plr-5"  [clearable]="false"  bindLabel="priority"  bindValue="priority" (change)="update(i.priority,'priority',i.user_id)" [(ngModel)]="i.priority"></ng-select>
+					    </div>
+                	</div>
+      			</div>
+  				<div class="row">
+      				<div class="col-md-12">
+                		<div class="mt-5">
+					    	<span class="p-3 fs-13">Teams</span>
+				    		<ng-select [items]="teams" (change)="update(selectedTeam,'team',i.assignee)" class="mt-3" [multiple]="true" bindLabel="name"  bindValue="name" [clearable]="false"  [(ngModel)]="selectedTeam"></ng-select>
+					    </div>
+                	</div>
+             	</div>
+  			</div>
+      	</div>
+       
+        <!-- History -->
+        <div class="panel">
+            <div class="panel-heading">
+                <h3 class="panel-title">History</h3>
+                <div class="panel-actions panel-actions-keep">
+                    <a class="panel-action"  [ngClass]="{'icon md-plus':!expand,'icon md-minus':expand}" (click)="toggle()"></a>
+                </div>
+            </div>
+            <div *ngIf="expand" class="panel-body scroll">
+             	<ul  class="list-group list-group-dividered list-group-full m-0 p-0">
+                	<li class="list-group-item">
+                    	<h6 class="mt-0 mb-5">
+                           <div class="name">Action By : {{created_by}}.</div>
+                        </h6>
+                    	<div>
+	                    	<small>Ticket was created</small>
+                     		<small class="float-right">{{created_date | date:'medium'}}</small>
+                    	</div>
+                	</li>
+            	</ul>
+       			<div *ngFor="let h of history">
+            		<ul class="list-group list-group-dividered list-group-full m-0 p-0">
+                    	<li class="list-group-item">
+                    	<h6 class="mt-0 mb-5">
+                           <div class="name">Action By : {{h.user_name}}.</div>
+                        </h6>
+                    	<div>
+	                    	<small>{{h.type}} was added</small>
+                        	<small class="float-right">{{h.create_date | date:'medium'}}</small>
+                    	</div>
+                    	</li>
+              		</ul>
+             	</div>
+        	</div>
+        </div>
+  	</div>
+
+  	<div class="col-lg-8">
+        <!-- Panel -->
+        <div class="panel">
+        	<div class="panel-body nav-tabs-animate nav-tabs-horizontal pt-0" data-plugin="tabs">
+                <ul class="nav nav-tabs nav-tabs-line" role="tablist">
+                  	<li class="nav-item" role="presentation"><a class="active nav-link" (click)="getAllReplies()" data-toggle="tab" href="#All"
+                      aria-controls="activities" role="tab"><b>All ( {{count}} ) </b></a></li>
+                  	<li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" (click)="getReply('comment')" href="#Comments" aria-controls="profile"
+                      role="tab"><b>Comments ( {{commentsCount}} )</b></a></li>
+                  	<li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" (click)="getReply('note')" href="#Notes" aria-controls="messages"
+                      role="tab"><b>Notes  ( {{notesCount}} )</b></a></li>
+                </ul>
+			  	<div class="tab-content">
+                  	<div class="tab-pane active animation-slide-left" id="All" role="tabpanel">
+                    	<ul class="list-group bb mt-5">
+                	    <div *ngIf="allReplies!='' ">
+                    	<li  class="list-group-item" *ngFor="let i of allReplies; let k = index">
+                        	<div class="media">
+                          		<div class="pr-20">
+		                            <a class="avatar" href="javascript:void(0)">
+		                            	<span *ngIf="show">
+		                            		<img class="main-avatar"  src="{{i.profile_pic | dynamicImgSrc}}" alt="...">
+		                            	</span>
+		                            </a>
+                          		</div>
+                          		<div class="media-body">
+                          			<div class="row">
+                          				<div class="col-md-6">
+                          					<h5 class="mt-0 mb-1">{{i.user_name}} &nbsp; <span *ngIf="i.type=='note'" class="badge badge-pill badge-danger">Note</span></h5>
+                    			          	<small>{{i.update_date | timeDiff}} </small>
+                    			   		</div>
+                      					<div class="col-md-6 text-right">
+                      						<span (click)="hideme[k] = !hideme[k]" *ngIf="i.reply_id == user_id" class="icon md-edit p-1"></span>
+                      						<span (click)="deleteReply(i.id,i.type)"  *ngIf="i.reply_id == user_id" class="mr-1 icon md-close-circle-o p-1"></span>
+                      					</div>
+                  					</div>
+		                     		<div class="profile-brief">
+		                     			<span class="pre-wrap">{{i.reply}}</span> 
+		                     			<div *ngIf="hideme[k]">
+		                     				<div class="form-group form-material floating" data-plugin="formMaterial">
+						                    <input type="text" [(ngModel)]="i.reply" class="form-control focus empty">
+						                    <div class="text-right mt-1">
+						                     	<button type="button" (click)="updateReply(i.reply,i.id); hideme[k] = !hideme[k];" class="btn btn-primary btn-sm waves-effect waves-classic mr-5"><b>Update </b></button>
+						                    	<button type="button" (click)="hideme[k] = !hideme[k]" class="btn btn-danger btn-sm waves-effect waves-classic"><b>Cancel</b></button>
+						                    </div>
+						                  </div>
+		                     			</div>
+		                 			</div>
+                          		</div>
+                        	</div>
+                      	</li>
+                      	</div>
+                      	<div *ngIf="allReplies=='' ">
+                      	    <p class="p-20"><b>Be the first one to comment  ... </b></p>
+                      	</div>
+                 	</ul>
+                   	</div>
+                    <!--<a class="btn btn-block btn-default profile-readMore" href="javascript:void(0)"
+                      role="button">Show more</a>
+                  	</div>-->
+				  	<div class="tab-pane animation-slide-left" id="Comments" role="tabpanel">
+                    	<ul class="list-group bb replyDiv">
+                      		<li class="list-group-item" *ngFor="let i of allReplies; let k = index">
+	                        	<div class="media">
+		                          <div class="pr-20">
+		                            <a class="avatar" href="javascript:void(0)">
+		                            	<span *ngIf="show">
+		                            		<img class="main-avatar"  src="{{i.profile_pic | dynamicImgSrc}}" alt="...">
+		                            	</span>
+		                            </a>
+	                          	</div>
+                          		<div class="media-body">
+	                            	<div class="row">
+                          				<div class="col-md-6">
+                          			     	<small>{{i.update_date | timeDiff}} </small>
+                    			    	</div>
+                      					<div class="col-md-6 text-right">
+                      						<span (click)="hideme[k] = !hideme[k]" *ngIf="i.reply_id == user_id" class="icon md-edit p-1"></span>
+                      						<span (click)="deleteReply(i.id,i.type)" *ngIf="i.reply_id == user_id" class="mr-1 icon md-close-circle-o p-1"></span>
+                      					</div>
+                  					</div>
+		                        	<div class="profile-brief">
+                              			<span *ngIf="!hideme[k]">{{i.reply}}</span> 
+		                     			<div *ngIf="hideme[k]">
+		                     				<div class="form-group form-material floating" data-plugin="formMaterial">
+						                    <input type="text" [(ngModel)]="i.reply" class="form-control focus empty">
+						                    <div class="text-right mt-1">
+						                     	<button type="button" (click)="updateReply(i.reply,i.id); hideme[k] = !hideme[k]" class="btn btn-primary btn-sm waves-effect waves-classic mr-5"><b>Update</b></button>
+						                    	<button type="button" (click)="hideme[k] = !hideme[k]" class="btn btn-danger btn-sm waves-effect waves-classic"><b>Cancel</b></button>
+						                    </div>
+						                  </div>
+		                     			</div>	
+                        			</div>
+                          			</div>
+                        		</div>
+                  			</li>
+	         			</ul>
+          			</div>
+				 	<div class="tab-pane animation-slide-left" id="Notes" role="tabpanel">
+		                <ul class="list-group replyDiv">
+		                  	<li class="list-group-item" *ngFor="let i of allReplies; let k = index">
+		                        <div class="media">
+		                      		<div class="pr-20">
+			                            <a class="avatar" href="javascript:void(0)">
+			                            	<span *ngIf="show">
+			                            		<img class="main-avatar"  src="{{i.profile_pic | dynamicImgSrc}}" alt="...">
+			                            	</span>
+			                            </a>
+		                          	</div>
+		                          	<div class="media-body">
+	                					<div class="row">
+                          					<div class="col-md-6">
+	                          					<h5 class="mt-0 mb-1">{{i.user_name}}</h5>
+	                    			          	<small>{{i.update_date | timeDiff}} </small>
+                			   				</div>
+	                      					<div class="col-md-6 text-right">
+	                      						<span (click)="hideme[k] = !hideme[k]" *ngIf="i.reply_id == user_id" class="icon md-edit p-1"></span>
+	                      						<span (click)="deleteReply(i.id,i.type)" *ngIf="i.reply_id == user_id" class="mr-1 icon md-close-circle-o p-1"></span>
+	                      					</div>
+	                  					</div>
+   			                            <div class="profile-brief">
+   			                      			<span *ngIf="!hideme[k]">{{i.reply}}</span> 
+		                     				<div *ngIf="hideme[k]">
+		                     				<div class="form-group form-material floating" data-plugin="formMaterial">
+						                    <input type="text" [(ngModel)]="i.reply" class="form-control focus empty">
+						                    <div class="text-right mt-1">
+						                     	<button type="button" (click)="updateReply(i.reply,i.id); hideme[k] = !hideme[k]" class="btn btn-primary btn-sm waves-effect waves-classic mr-5"><b>Update</b></button>
+						                    	<button type="button" (click)="hideme[k] = !hideme[k]" class="btn btn-danger btn-sm waves-effect waves-classic"><b>Cancel</b></button>
+						                    </div>
+						                  </div>
+		                     			</div>
+   			                            </div>
+		                          	</div>
+		                    	</div>
+		                  	</li>
+			       		</ul>
+		    	 	</div>
+		     	</div>
+		     	<div class="col-md-6 p-0">
+            		<div class="mt-1">
+				    	<span class="fs-13"><b>Select canned response</b></span>
+			    		<ng-select [items]="canResponses" (change)="getCan(selectedCan)" class="mt-3 pb-0"  [clearable]="false" bindLabel="title" bindValue="id" [(ngModel)]="selectedCan"></ng-select>
+				    </div>
+            	</div>
+            	<ul class="nav nav-tabs nav-tabs-line mt-10" role="tablist">
+                	<li class="nav-item" role="presentation"><a class="active nav-link" data-toggle="tab" (click)="replyType('comment')" href="#reply" aria-controls="profile"
+                      role="tab">Comments </a></li>
+                  	<li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" (click)="replyType('note')" href="#reply" aria-controls="messages"
+                      role="tab">Notes </a></li>
+                </ul>
+                
+                <div class="tab-content">
+                  	<div class="tab-pane active" id="reply" role="tabpanel">
+                  		<div class="masonry-item">
+    		            	<div class="panel input-panel">
+    		               		<div class="form-group commentBox">
+    			                	<textarea class="form-control" rows="3" [(ngModel)]="reply" cols="40" placeholder="type something here..."></textarea>
+    			                	<div class="form-footer">
+    				                  	<div class="input-panle-btn pointer">
+    				                  	    <div class="file-upload">
+                                                <label for="upload" class="file-upload__label"> <i class="icon md-image"> Upload Image </i> 
+                                                    <span style="color:#827e7e" *ngIf="filenm!=''"> &nbsp; {{filenm |  truncate : 35}}</span> 
+                                                </label>
+                                                <input id="upload" #replyPic (change)="filename($event)" class="file-upload__input" type="file" name="file-upload">
+                                      	    </div>
+    	                   				    <button class="btn submit font-weight-500" [disabled]="!reply" (click)="postReply(reply,user_id); reply=''">submit</button>
+    								    </div>
+    				           	    </div>
+    						    </div>
+    		          	    </div>
+              		    </div>
+          		    </div>
+          	    </div>
+          	    
+    	    </div>
+    <!-- End Panel -->
+  	</div>
+</div>
+</div>

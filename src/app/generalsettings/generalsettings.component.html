@@ -1,0 +1,78 @@
+<div class="container-fluid p-20">
+	<div class="card p-10 mb-10">
+        <h4> General settings</h4>
+    </div>
+	<div class="row">
+		<div class="col-md-12 mt-1">
+			<div class="panel">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12">
+							<!--<form #gensettings = "ngForm" (ngSubmit) = "saveGenSetg(gensettings.value)">-->
+								<div class="form-group">
+									<input type="text" placeholder="Website Title" class="form-control form-control-sm col-md-12" id="websitetitle" name="websitetitle" [(ngModel)]="websitetitle" autocomplete="off">
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Helpdesk Title" class="form-control form-control-sm col-md-12" id="helpdesktitle" name="helpdesktitle" [(ngModel)]="helpdesktitle" autocomplete="off">
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="Helpdesk URL" class="form-control form-control-sm col-md-12" id="helpdeskurl" name="helpdeskurl" [(ngModel)]="helpdeskurl" autocomplete="off">
+								</div>
+								<div class="form-group">
+									<input type="email" placeholder="Webmaster Email" class="form-control form-control-sm col-md-12" id="webmasteremail" name="webmasteremail" [(ngModel)]="webmasteremail" autocomplete="off">
+								</div>
+								<div class="form-group">
+									<input type="email" placeholder="'From:' Email" class="form-control form-control-sm col-md-12" id="fromemail" name="fromemail" [(ngModel)]="fromemail" autocomplete="off">
+								</div>
+								<div class="form-group">
+									<input type="text" placeholder="'From:' Name" class="form-control form-control-sm col-md-12" id="fromname" name="fromname" [(ngModel)]="fromname" autocomplete="off">
+								</div>
+								<div class="form-group row ml-0">
+									<label class="form-control-label col-md-2" for="select">Default Language :</label>
+									<div class="col-md-10"><ng-select name="defaultlanguage" [(ngModel)]="defaultlanguage">
+										<ng-option value="0">English</ng-option>
+									</ng-select></div>
+								</div>
+								<div class="form-group row ml-0">
+									<label class="form-control-label col-md-2" for="multiplelang">Multiple Languages :</label>
+									<div class="radio-custom radio-primary col-md-3">
+										<input type="radio" id="mutiplelang" name="mutiplelang" [value]="0" [(ngModel)]="mutiplelang">
+										<label for="mutiplelang">Off</label>
+									</div>
+									<div class="radio-custom radio-primary col-md-3">
+										<input type="radio" id="mutiplelang1" name="mutiplelang" [value]="1" [(ngModel)]="mutiplelang" checked="">
+										<label for="mutiplelang1">On</label>
+									</div>
+								</div>
+								<div class="form-group row">
+									<div class="logo-upload">
+								        <div class="logo-edit mb-15 inline">
+								            <label for="logoUpload" class="file-upload__label"> <i class="icon md-image"> Upload Logo </i> </label>
+								            <span style="color:#827e7e" *ngIf="filenm!=''"> &nbsp; {{filenm |  truncate : 35}}</span> 
+                                            <input id="logoUpload" (change)="filename($event)" #logoUpload class="file-upload__input" type="file" name="imageUpload">
+								            
+								            <!--<input type='file' #logoUpload id="logoUpload" name="imageUpload" />-->
+								            <!--<label class="imageUpload" for="imageUpload"><i class="icon md-camera" aria-hidden="true"></i> Change Logo</label>-->
+								        </div>
+								        <div class="logo-preview inline">
+								            <div class="pointer imagePreview" *ngIf="imagepreview">
+								            	<img id="preview" src="{{logourl}}">
+								            </div>
+								            <div class="pointer imagePreview" *ngIf="!imagepreview">
+								            	<img id="logo_img" src="https://www.shopemailer.com/logos/{{  logoimage || 'yourlogohere.jpg' }}">
+								            </div>
+								        </div>
+									</div>
+								</div>
+								<div class="form-group row pl-15">
+									<button *ngIf="chkdata" type="button" class="display-inline btn btn-primary waves-effect waves-classic mr-2" id="update" [disabled]="!type_id" (click)="Updtgrlstg(websitetitle, websiteurl, helpdesktitle, helpdeskurl, webmasteremail, fromemail, fromname, defaultlanguage, mutiplelang, imageUpload)">Update</button>
+									<button *ngIf="!chkdata" type="button" class="display-inline btn btn-primary waves-effect waves-classic mr-2" [disabled]="!type_id || !websitetitle" id="save" (click)="saveGenSetg(websitetitle, websiteurl, helpdesktitle, helpdeskurl, webmasteremail, fromemail, fromname, defaultlanguage, mutiplelang, imageUpload)">Save</button>
+								</div>
+							<!--</form>-->
+						</div>	
+					</div><!-- row -->
+				</div><!-- pannel-body -->
+			</div><!-- panel -->
+		</div><!-- col-md-9 -->
+	</div><!-- row -->
+</div><!-- container-fluid-->

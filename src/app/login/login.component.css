@@ -1,0 +1,36 @@
+.loginMaster { background-color: #3b3b43; }
+.loginPage { background: #ffffff; padding: 30px 0; margin: 66px 0; }
+div#tabbox { display: block; min-height: 50px; }
+a.tab { display: block; width: 50%; float: left; text-align: center; color: #bab9bc; cursor: pointer; padding: 12px 0; border-bottom: 1px solid #bab9bc; }
+a.tab:hover, a.tab:focus { text-decoration: none; outline: 0; color: #000000; }
+a.tab.active { color: #000000; border-bottom: 2px solid #000000; }
+div#loginBox { display: block; min-height: 200px; padding-top: 25px; padding-left: 20px; padding-right: 20px; }
+div#signupBox { display: block; min-height: 250px; padding-top: 25px; padding-left: 20px; padding-right: 20px; }
+.btnGoogle.btn { background: #dd4e42; border: transparent; }
+span.googleicon, span.fbicon { display: block; float: left; border-right: 1px solid; padding-right: 10px; }
+span.fbicon { padding-right: 15px; }
+.btnGoogle.btn:hover, .btnGoogle.btn:focus { background: #900b00; }
+.btnFb { background: #3b5998; border: transparent; }
+.btnFb:hover, .btnFb:focus { background: #00226b; }
+.badge-carbon, .btn-carbon { background: #575f65; color: #ffffff; }
+.badge-carbon:hover, .btn-carbon:hover, .badge-carbon:focus, .btn-carbon:focus { background: #30363a; }
+.socialBtns { display: block; padding: 0 30px; }
+.gotoSignUp { display: inline-block; cursor: pointer; }
+.page-login-main,.page-register-v2 .page-register-main{padding:0px 40px 180px !important;}
+.page-register-main{padding:0px 60px 180px 60px !important;} 
+.btn.social-facebook { padding: 11px; width: 40px; height: 40px; display: inline-block; }
+.btn.social-google-plus { display: inline-block; padding: 11px 0; width: 40px; height: 40px; }
+.social i { color: #fff; font-size: 18px; }
+
+@media(max-width:767px){
+    .page-login-v2 .page-login-main{background:transparent;}
+    .page-login-v2 .page-brand-info .brand-text{display:none !important;}
+    .page-copyright{color:#ffffff;}
+    .page{text-align:center; color:white;}
+     h3 ,p ,label ,a{color:#ffffff; font-weight: 500;}
+    .page-login-v2 .page-login-main .brand-text{color:white;}
+    
+}
+@media (max-width: 575px) {
+    .loginMaster { background-color: #ffffff; }
+}

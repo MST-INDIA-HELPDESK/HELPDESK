@@ -1,0 +1,140 @@
+<app-user-header></app-user-header>
+    <div class="container-fluid height">
+    <div class="row p-20" [ngClass]="{'justify-content-center': !loggedIn}">
+        <div *ngIf="!loggedIn" class="col-md-6 col-12 mt-5 p-10">
+            <div class="card">
+                <div class="card-body">
+                    <form #searchTicket="ngForm" (ngSubmit)="showTicket(searchTicket.value)">
+                    <div class="form-group">
+                        <input [(ngModel)]="searchid" #searchId="ngModel" type="text" class="form-control" id="searchticketid" name="searchticketid" placeholder="Tracking ID" pattern="[0-9]" required>
+                    </div>
+                    <div class="form-group">
+                        <input [(ngModel)]="emailid" #emailId="ngModel" type="text" class="form-control" id="searchticketemail" name="searchticketemail" placeholder="Email ID" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                    </div>
+                    <div *ngIf="emailId.invalid && (emailId.touched)">
+                        <div *ngIf="emailId.errors.required && emailId.touched" class="invalid text-right">* Email is required</div>
+                        <div *ngIf="emailId.errors?.pattern && emailId.touched" class="invalid text-right">* Email must be a valid email address</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="!searchid || !emailid">View Ticket</button>
+                    <a class="ml-2 mr-2 pl-2 pr-2" (click)="forgetTicketId()" style="cursor: pointer;">Forget Ticket Id?</a>
+                    </form>
+              
+                    <form class="mt-3" #findticket="ngForm" *ngIf="findForm" (ngSubmit)="viewTicketId(findticket.value)">
+                    <p>No worries! Enter your Email address and we will show you your tracking ID right away:</p>
+                    <div class="form-group">
+                        <input [(ngModel)]="uemailid" #emailId="ngModel" type="text" class="form-control" id="findticketemail" name="uemailid" placeholder="Email ID" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required>
+                    </div>
+                    <div *ngIf="emailId.invalid && (emailId.touched)">
+                        <div *ngIf="emailId.errors.required && emailId.touched" class="invalid text-right">* Email is required</div>
+                        <div *ngIf="emailId.errors?.pattern && emailId.touched" class="invalid text-right">* Email must be a valid email address</div>
+                    </div>
+                    <div class="form-group">              
+                        <div class="radio-custom radio-primary">
+                            <input type="radio" id="inputRadioNormal" name="inputRadios" [(ngModel)]="inputRadios" value="Open">
+                            <label for="inputRadioNormal">Send Me Only Open Tickets</label>
+                        </div>
+                        <div class="radio-custom radio-primary">
+                            <input type="radio" id="inputRadioNormal" name="inputRadios" [(ngModel)]="inputRadios" value="All">
+                            <label for="inputRadioNormal">Send Me All Tickets</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" [disabled]="!uemailid" data-target="#ticketModel">Show Me Ticket Id</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="loggedIn" class="col-12 m-auto p-10">
+            <div class="nav-tabs-horizontal ticketspanel" data-plugin="tabs">
+                <div class="panel">
+                    <ul class="nav nav-tabs nav-tabs-line panel-heading" role="tablist">
+                        <li class="nav-item" role="presentation"><a class="nav-link active show" data-toggle="tab" href="#open" aria-controls="open" role="tab" aria-selected="true">Open</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#closed" aria-controls="closed" role="tab" aria-selected="false">Closed</a></li>
+                        <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#resolved" aria-controls="resolved" role="tab">Resolved</a></li>
+                        <li class="dropdown nav-item" role="presentation" style="display: none;">
+                        <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" aria-expanded="false">Dropdown </a>
+                        <div class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" data-toggle="tab" href="#open" aria-controls="open" role="tab">Home</a>
+                            <a class="dropdown-item" data-toggle="tab" href="#closed" aria-controls="closed" role="tab">Components</a>
+                            <a class="dropdown-item" data-toggle="tab" href="#resolved" aria-controls="resolved" role="tab">Css</a>
+                        </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="open" role="tabpanel">
+                        <div class="panel" *ngFor="let i of tickets;let i=index">
+                            <div *ngIf="i.status=='Open'" class="panel-body">
+                                <div class="row pointer" [routerLink]="['/viewticket', i.id, '']" >
+                                    <div class="col-lg-1 col-md-2 col-sm-2 m-auto">
+                                    <span class="avatar-id">
+                                    #{{i.id}}
+                                    </span>
+                                    </div>
+                                    <div class="col-lg-11 col-md-10 col-md-10 p-5 pointer">
+                                    <h5>{{i.subject}}</h5>
+                                    <small>Created : {{i.created_date | timeDiff }}</small>
+                                    </div>
+                                </div>
+                                <div class="ribbon ribbon-clip ribbon-reverse ribbon-bottom ribbon-warning">
+                                    <span class="ribbon-inner" >Open</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="closed" role="tabpanel">
+                        <div class="panel" *ngFor="let i of tickets;let i=index">
+                            <div *ngIf="i.status=='Closed'" class="panel-body">
+                                <div class="row pointer" [routerLink]="['/viewticket', i.id, '']" >
+                                    <div class="col-lg-1 col-md-2 col-sm-2 m-auto">
+                                        <span class="avatar-id"> #{{i.id}}</span>
+                                    </div>
+                                    <div class="col-lg-11 col-md-10 col-md-10 p-5 pointer">
+                                        <h5>{{i.subject}}</h5>
+                                        <small>Created : {{i.created_date | timeDiff }}</small>
+                                    </div>
+                                </div>
+                                <div class="ribbon ribbon-clip ribbon-reverse ribbon-bottom ribbon-danger">
+                                    <span class="ribbon-inner" >Closed</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="resolved" role="tabpanel">
+                        <div class="panel" *ngFor="let i of tickets;let i=index">
+                            <div *ngIf="i.status=='Resolved'" class="panel-body">
+                                <div class="row pointer" [routerLink]="['/viewticket', i.id, '']" >
+                                    <div class="col-lg-1 col-md-2 col-sm-2 m-auto">
+                                        <span class="avatar-id">
+                                        #{{i.id}}
+                                        </span>
+                                    </div>
+                                    <div class="col-lg-11 col-md-10 col-md-10 p-5 pointer">
+                                        <h5>{{i.subject}}</h5>
+                                        <small>Created : {{i.created_date | timeDiff }}</small>
+                                    </div>
+                                </div>
+                                <div class="ribbon ribbon-clip ribbon-reverse ribbon-bottom ribbon-success">
+                                  <span class="ribbon-inner" >Resolved</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<app-user-footer></app-user-footer>
+<div class="modal fade" #ticketModel id="ticketModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content cst-modal panel panel-success panel-line">
+            <div class="modal-header panel-heading">
+                <h3 class="panel-title">Mail Sent Successfully</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+    

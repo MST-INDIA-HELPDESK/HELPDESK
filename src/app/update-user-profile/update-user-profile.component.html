@@ -1,0 +1,114 @@
+<app-user-header></app-user-header>
+<div class="container-fluid height">
+  <div class="row p-20">
+    <div class="col-md-6 col-lg-6" *ngFor="let item of profileData">
+      <div class="panel mb-10 noshadow">
+        <div class="panel-body text-center">
+          <form #updateProfilePic = "ngForm" enctype="multipart/form-data">
+            <div class="avatar-upload">
+              <div class="avatar-edit">
+                <input type='file' id="imageUpload" name="image" (change)="onSelectFile($event)"/>
+                <label for="imageUpload"><i class="icon md-edit" aria-hidden="true"></i></label>
+              </div>
+              <div class="avatar-preview">
+                <div id="imagePreview">
+                  <img src={{url}} *ngIf="!item.profile_pic && !profile_photo">
+                  <img src="http://192.168.0.10/uploadpics/{{ profile_photo || item.profile_pic}}"  *ngIf="profile_photo || item.profile_pic">
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="form-group form-material">
+            <label class="form-control-label"> {{ item.first_name }} {{ item.last_name }} </label>
+          </div>
+          <div class="form-group form-material">
+            <label class="form-control-label"> {{ item.company }}  </label>
+          </div>
+          <div class="form-group form-material">
+            <label class="form-control-label"> {{ item.email }} </label>
+          </div>
+          <div class="form-group form-material">
+            <label class="form-control-label"> {{ item.phone }}</label>
+          </div>
+          <div class="form-group form-material">
+            <a href="#" data-toggle="modal" data-target="#changePassModal" class="">Change Password</a>
+          </div>
+        </div>
+      </div>
+    </div>	
+    <div class="col-md-6 col-lg-6">
+      <div class="panel mb-10 noshadow">
+        <div class="panel-body">
+          <h3>Profile Information</h3>
+        </div>
+        <div class="panel-body">
+          <form #updateProfile="ngForm" (ngSubmit) ="onClickSubmit(updateProfile.value)" *ngFor="let item of profileData">
+            <div class="form-group form-material">
+              <input type="text" class="form-control" name="first_name" placeholder="Name" [(ngModel)]="item.first_name" autocomplete="off">
+            </div>
+            <div class="form-group form-material">
+              <input type="text" class="form-control" name="last_name" placeholder="Name" [(ngModel)]="item.last_name" autocomplete="off">
+            </div>
+            <div class="form-group form-material">
+              <input type="text" class="form-control" name="company_name" placeholder="Company Name" [(ngModel)]="item.company" autocomplete="off">
+            </div>
+            <div class="form-group form-material">
+              <input type="text" class="form-control" name="address" placeholder="Address" [(ngModel)]="item.address" autocomplete="off">
+            </div>
+            <div class="form-group form-material">
+              <input type="email" class="form-control" name="email" placeholder="Email Address" [(ngModel)]="item.email" autocomplete="off" readonly>
+            </div>
+            <div class="form-group form-material">
+              <input type="text" class="form-control" name="phone_no" placeholder="Contact No" [(ngModel)]="item.phone" autocomplete="off">
+            </div>
+            <div class="form-group form-material">
+              <input type="text" class="form-control" name="facebook" placeholder="Facebook" [(ngModel)]="item.facebook" autocomplete="off">
+            </div>
+            <div class="form-group form-material">
+              <input type="text" class="form-control" name="twitter" placeholder="Twitter" [(ngModel)]="item.twitter" autocomplete="off">
+            </div>
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary waves-effect waves-classic">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="changePassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form #UpdatePassword = "ngForm" (ngSubmit) ="changePassword(UpdatePassword.value)" >
+      <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+          <div ngModelGroup="password" #userPassword="ngModelGroup" >
+            <div class="form-group form-material">
+              <input type="password" class="form-control" [(ngModel)]="pwd" name="pwd" placeholder="Password" autocomplete="off" required>
+            </div>
+            <div class="form-group form-material">
+              <input type="password" class="form-control" [(ngModel)]="confirmPwd" name="confirmPwd" placeholder="Confirm Password" autocomplete="off" required>
+            </div>
+          </div>
+          <div *ngIf="(userPassword.invalid|| userPassword.value?.pwd != userPassword.value?.confirmPwd) && (userPassword.touched)"  class="alert alert-danger">					     
+            <div *ngIf = "userPassword.value?.pwd != userPassword.value?.confirmPwd;">
+              Passwords don't match
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="UpdatePassword.reset()" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" [disabled]="!userPassword.value?.pwd || userPassword.value?.pwd != userPassword.value?.confirmPwd">Change Password</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<app-user-footer></app-user-footer>

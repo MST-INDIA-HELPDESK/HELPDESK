@@ -1,0 +1,7 @@
+a.viewTeamBtn { display: inline-block; width: 100%; cursor: pointer; }
+a.editTeamBtn, a.delTeamBtn { display: inline-block; padding: 10px 8px; cursor: pointer; }
+.panel-actions { padding: 0; position: absolute; right: 30px; top: 50%; -webkit-transform: translate(0%, -50%); transform: translate(0%, -50%); margin: auto; z-index: 1; }
+#exampleReport .example { border: 1px solid #e4eaec; }
+#exampleReport .panel-title { border: none; }
+.panel-heading + .panel-body { padding: 10px 30px; }
+

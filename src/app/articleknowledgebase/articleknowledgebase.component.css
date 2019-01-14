@@ -1,0 +1,3 @@
+.new_article_outer {padding: 10px; border-radius:5px; }
+.btncancel { display: inline-block;  line-height: 20px; border-left: 1px solid; padding: 5px; font-size: 14px; }
+.ngx-editor-textarea{ min-height:200px; }

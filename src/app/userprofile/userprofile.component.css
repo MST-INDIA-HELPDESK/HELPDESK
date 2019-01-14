@@ -1,0 +1,27 @@
+.avatar-lg img{width:130px !important;height:130px !important;}
+.page-profile .card-footer{padding:5px 0;}
+.form-group {margin-bottom: 1rem;}
+.nopad{padding:0;}
+.panel-title{padding:5px 20px;}
+.panel-body{padding: 10px 30px;}
+.back{background: #f9f9f9}
+.p-15.sidebar{background:#fff; padding-bottom:25px !important;}
+.plr-5{padding:0 10px;}
+.fs-18{font-size:18px;}
+.pl-18{padding-left:18px;}
+.fs-13{font-size:13px; color:#1e1a1a87;}
+.md-filter-list:before { font-weight: bold;font-size: 20px;}
+.panel-body.mytickets {padding: 5px 15px !important;}
+.filterMenu {display: inline-block;}
+li.nav-item.ticketTab  .nav-link{border-bottom:unset;color: unset;font-weight: 700;} 
+.paginationctrl{display:inline-block;}
+.paginationControl {position: absolute;bottom: 0;width: 100%;z-index: 1000;}
+.profcontent {margin-bottom: 30px;}
+h6.noTickets {margin-bottom: auto;}
+.exampleFillIn{display:none;}
+span.ticketTab {vertical-align: middle;line-height: 30px;font-weight: 700;}
+span.filterRight {float: right;margin-top: 5px;}
+.panelMargB{margin-bottom:auto !important;}
+@media(max-width:768px){.mob-in{display:inline}}
+@media(max-width:572px){li.nav-item.ticketTab {width: 40%;} li.filterRight {width: 60%;}}
+@media(max-width:479px){.exampleFillIn{display:block;} .modal{top:66px !important;} .toggleSidebar{display:none;}}

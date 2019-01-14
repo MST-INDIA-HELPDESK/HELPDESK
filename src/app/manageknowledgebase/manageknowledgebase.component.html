@@ -1,0 +1,35 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12 mt-4">
+	        <div class="row panel m-0 p-5 mb-10">
+                <div class="col-md-8">
+                    <h4>Manage Knowledgebase</h4>
+                </div>
+                <div class="col-md-4 text-right mt-1">
+                    <a routerLink="./categoryknowledgebase" class="btn btn-primary"><i class="icon md-play mr-1" aria-hidden="true"></i> 
+                    <i  aria-hidden="true"></i> New Category </a>
+                </div>
+            </div>
+			<div class="row justify-content-center">
+				<div class="col-md-9">
+					<div class="row">
+						<div class="col-lg-3 col-md-6 col-sm-6 text-center" *ngFor="let item of category">
+							<!--<div class="card">
+								<div class="card-block">
+									<a href="javascript:;" class="category_title" [routerLink]="['./showsubcategories', item.id, item.category_title]"><i class="icon md-folder" aria-hidden="true"></i> <span class="pl-2"><b>{{item.category_title}}</b></span></a>
+								</div>
+							</div>-->
+							<div class="card">
+								<a href="javascript:;" class="category_title" [routerLink]="['./showsubcategories', item.id, item.category_title]">
+									<div class="card-block">
+										<i class="icon md-folder" aria-hidden="true"></i> <span class="pl-2"><b>{{item.category_title}}</b></span>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- row -->
+		</div><!-- col-md-9 -->
+	</div><!-- row -->
+</div><!-- container-fluid-->

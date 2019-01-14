@@ -1,0 +1,26 @@
+<div class="container-fluid p-20">
+    <div class="card p-10 mb-10 p-5">
+        <h4>All notifications </h4>
+    </div>
+	<div class="row">
+		<div class="col-lg-6 col-md-12 col-sm-12">
+	      	<ul *ngIf="notifications" class="list-group list-group-full">
+                <li class="list-group-item flex p-5" *ngFor="let i of notifications" (click)="markAsRead(i.ticket_id)">
+                   	<div class="media-body pointer p-5">
+                        <div *ngIf="i.subject=='assignee'">
+                        <b>Ticket Id #{{i.ticket_id}} has been assigned to you</b>
+                        </div>	
+                        <div *ngIf="i.subject!='assignee'">
+                        <b>{{i.subject | titlecase }} has been changed for Ticket #{{i.ticket_id}}</b>
+                        </div>
+                        <small>{{i.created_date | timeDiff}}</small>
+                    </div>
+                 </li>
+        	</ul>
+         	
+            <div class="card p-10" *ngIf="message">
+             <b> {{message}} </b> 
+            </div>
+        </div>
+	</div>
+</div>

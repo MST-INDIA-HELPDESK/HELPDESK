@@ -1,0 +1,4 @@
+.newcatbtn { position: absolute; right: 20px; top: 15%; }
+.edit_cat, .del_cat, .article_title { padding: 10px 8px; display: inline-block; cursor: pointer; }
+a.article_title { font-size: 14px; }
+.article_title i { font-size: 20px; }

@@ -1,0 +1,14 @@
+a:not([href]):not([tabindex]) { color: #fff; }
+.team_user { display: block; }
+.remMemBtn { cursor: pointer; color: #4d4d4d !important; float: right; padding: 3px 10px; }
+.remMemBtn i { font-size: 16px; }
+.teamMembers .team_user .icon { margin: 0; }
+.teamMembers .dropdown-menu { min-width: 250px; }
+.teamMembers .dropdown-menu .form-group {  margin-top: 10px; margin-bottom: 10px; }
+.teamMembers ng-select { padding: 0 10px; }
+.dropdown.addMemberBtn { position: absolute; right: 12px; top: 11px; }
+.teamMembers .panel-body { padding: 15px 30px; }
+
+@media (max-width: 768px) {
+    .panel-actions { position: absolute; right: 20px; top: 50%; -webkit-transform: translate(0%, -50%); transform: translate(0%, -50%); padding: 0; margin: auto; }
+}

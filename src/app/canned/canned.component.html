@@ -1,0 +1,60 @@
+<div class="container p-20">
+    <div class="card p-5 mb-10 pl-10">
+        <h4> Canned Responses </h4>
+    </div>
+ 	<div class="row">
+ 		<div class="col-md-5 pl-5">
+ 		    <div class="example example-well m-0 pt-0 " *ngFor="let i of canResponses">
+				<div id="examplePanel" class="panel mb-0">
+				    <div class="panel-body row p-20 mb-0">
+			    	<div class="col-md-10 ">
+			    	    <div class="row pointer" (click)="selectedRes(i.id)">
+    			    	    <div class="col-md-10">
+    			    	        <b>{{i.title}}</b>
+    			    	    </div>
+    			    	    <div class="col-md-2 ">
+    			    	        <span ><i class="icon md-edit"></i></span>
+   			    	        </div>
+   			    	    </div>
+			    	</div>
+			    	<div class="col-md-2 pointer">
+			    	    <span (click)="deleteRes(i.id)" ><i class="icon md-delete"></i></span>
+			    	</div>
+    			    </div>
+			    </div>
+            </div>
+       	</div>
+ 		
+     	<div class="col-md-7">
+			<div class="panel mb-10">
+				<div class="panel-heading">
+                	<h3 *ngIf="!edit" class="panel-title"> Create New Response</h3>
+                	<h3 *ngIf="edit" class="panel-title"> Edit Response</h3> 
+				</div>
+				
+  				<div class="panel-body">
+    				<div class="form-group " data-plugin="formMaterial">
+			            <input type="text" class="form-control" id="inputText" name="inputText" [(ngModel)]="title" placeholder="Title">
+      				</div>
+ 					<div class="form-group " data-plugin="formMaterial">
+    					<textarea #messagee class="form-control"  placeholder="Message" (click)="getCaretPos(messagee)" (keyup)="getCaretPos(messagee)" id="textarea" name="textarea" [(ngModel)]="message" rows="4"></textarea>
+  					</div>
+	  				<div >
+						Insert special tag (will be replaced with customer info dynamically)
+						<div class="row p-10 tag">
+			    			<a  class="plr-5 bl" (click)="addTag('user_name')">User-name</a>
+			    			<a  class="plr-5 bl" (click)="addTag('email')">Email</a>
+						</div>
+					</div>
+				</div>
+    			<div class="row justify-content-center pb-10">
+	   		     	<button *ngIf="!edit" class="btn btn-primary" [disabled]="!message || !title" (click)="create(title,message)"> Create </button>
+	   		     	<div *ngIf="edit">
+	   		     	<button class="btn btn-primary" (click)="update(title,message,can_id)"> Update </button>
+	   		     	<button  class="btn btn-primary ml-2" (click)="reset()"> Cancel </button>
+	   		     	</div>
+   		     	</div>
+   		     </div>
+        </div>
+    </div>
+</div>

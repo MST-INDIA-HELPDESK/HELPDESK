@@ -1,0 +1,45 @@
+<app-user-header></app-user-header>
+<div class="container height">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row justify-content-md-center">
+				<div class="col-md-12">
+					<div class="pdTpBt-20">
+						<div>
+							<ol class="breadcrumb">
+			                  <li class="breadcrumb-item"><a [routerLink]="['/home']" href="javascript:void(0)">Home</a></li>
+			                  <li *ngIf="showArt" class="breadcrumb-item"><a  href="javascript:void(0)" (click)="previousPage()"> Articles </a></li>
+			                  <li disabled class="breadcrumb-item"><a href="javascript:void(0)" >{{ category }}</a></li>
+			                </ol>
+							<div class="card">
+								<div class="card-header">
+									<b>{{articleName}}  </b>
+								</div>
+								<div *ngFor="let c of solutions;let i = index">
+									<div  class="card-body">
+										<div class="card-text">
+											<span class="pull-right">{{ c.created_date | date:'mediumDate' }}</span>
+											<div [innerHTML]="c.content"></div>
+										</div>	
+									</div>
+									<div class="card-footer text-muted">
+										<div class="row">
+											<div class="col-md-6">
+												<div class="ratings">
+													<div class="empty-stars"></div>
+													<div class="full-stars" [ngStyle]="{'width':calcWith(c.rating)}"></div>
+												</div>
+											</div>
+											<span class="col-md-6 text-right"><b> Was this article helpful ? <a  href="javascript:;" (click)="rating('yes',c.id)"> Yes </a> / <a href="javascript:;" (click)="rating('no',c.id)"> No </a></b></span> 
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<app-user-footer></app-user-footer>

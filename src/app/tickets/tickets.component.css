@@ -1,0 +1,27 @@
+.nopad{padding:0;}
+.h-1{height:100%;}
+.wd-100{width:100%;}
+.ticketList .panel-title{padding:5px 20px;}
+.ticketList .panel-body{padding: 10px 30px;}
+.back{background: #f9f9f9}
+.p-15.sidebar{background:#fff; padding-bottom:25px !important;}
+.plr-5{padding:0 10px;}
+.fs-18{font-size:18px;}
+.pl-18{padding-left:18px;}
+.fs-13{font-size:13px; color:#1e1a1a87;}
+.md-filter-list:before { font-weight: bold;font-size: 20px;}
+a.filterMenu { position: relative; top: 2px; }
+.ticketList { min-height: 452px; }
+#newTicketId .modal-header .close { margin: 0 0 0 auto; }
+.large_hide { display: none; }
+.panel-actions.panel-act{transform: unset !important;z-index: unset !important;}
+@media (min-width: 481px) and (max-width: 767.98px){
+	.ticketList .panel-title { display: inline-block; padding: 5px; }
+	.ticketList .panel-actions { display: inline-block; padding: 0; position: absolute; right: -5px; top: 50%; -webkit-transform: translate(0%, -50%); transform: translate(0%, -50%);	margin: auto; }
+	.ticketList .ng-select { display: inline-block; }
+}
+@media (max-width: 479px) {
+	.back .checkbox-custom { padding-left: 0; }
+	.small_hide { display: none; }
+	.large_hide { display: inline-block; }
+}

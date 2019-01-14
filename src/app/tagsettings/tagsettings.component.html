@@ -1,0 +1,47 @@
+<div class="container-fluid p-20">
+	<div class="card p-10 mb-10">
+        <h4> Tag settings</h4>
+    </div>
+	<div class="row">
+		<div class="col-md-12 mt-1">
+			<div class="panel">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<input type="text" placeholder="Add Tag" class="form-control form-control-sm col-md-4" id="tagnm" name="tagnm" [(ngModel)]="tagnm" autocomplete="off">
+							</div>
+								<button *ngIf="!editdata" type="button" class="display-inline btn btn-primary waves-effect waves-classic mr-2" [disabled]="!tagnm" id="save" (click)="saveTag(tagnm)">Save</button>
+								<button *ngIf="editdata" type="button" class="display-inline btn btn-primary waves-effect waves-classic mr-2" [disabled]="!tagnm" id="update" (click)="updateTag(id, tagnm)">Update</button>
+								<button *ngIf="editdata" type="button" class="display-inline btn btn-primary waves-effect waves-classic mr-2" id="cancel" (click)="cancel()">Cancel</button>
+						</div>	
+					</div><!-- row -->
+				</div><!-- pannel-body -->
+			</div><!-- panel -->
+			<div class="example example-well pt-10 m-0" *ngFor="let i of tags">
+				<div id="examplePanel" class="panel mb-0">
+	    			<div class="row panel-body p-20 mb-0">
+    					<div class="col-md-4 pointer mb-0">
+			            	<span class="">
+				 				<i class="icon md-tag" aria-hidden="true"></i> <span class="pl-2">{{i.tag_name}}</span>
+				 			</span>
+    					</div>
+    					<div class="col-md-4 pointer mb-0">
+			            	<div class="tooltip1">
+				 				<i class="icon md-ticket-star" aria-hidden="true"></i><span class="pl-2">{{i.ticketcount}}</span>
+				 				<span class="tooltiptext">Tickets</span>
+				 			</div>
+    					</div>
+				    	<div class="col-md-4 m-auto pointer">
+				    	    <span class="float-right" (click)="deltag(i.id)"><i class="icon md-delete"></i></span>
+				    	    <span class="float-right mr-20" (click)="edittag(i.id)"><i class="icon md-edit"></i></span>
+				    	</div>
+	    			</div>
+    			</div>
+			</div>
+			<div class="card p-10" *ngIf="message">
+        		<h5>{{message}}</h5>
+    		</div>
+		</div><!-- col-md-9 -->
+	</div><!-- row -->
+</div><!-- container-fluid-->

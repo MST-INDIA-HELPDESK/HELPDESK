@@ -1,0 +1,71 @@
+<!-- Page -->
+<div class="page-register-v2 layout-full page-dark" style="background-position: 100%;">
+  <div class="page">
+    <div class="page-content">
+      <div class="page-brand-info">
+        <div class="brand mb-20">
+            <h1 class="brand-text font-size-40">Helpdesk</h1>
+        </div>
+      </div>
+
+      <div class="page-register-main">
+        <div class="brand hidden-md-up mb-2 mb-20">
+            <h3 class="brand-text font-size-40">Helpdesk</h3>
+        </div>
+        <h3 class="font-size-24">Sign Up</h3>
+        <form #signup="ngForm" (ngSubmit)="signup.form.valid && signUp(signup.value)">
+          <div class="form-group">
+            <input type="text" class="form-control empty" placeholder="First Name" id="inputFName" name="first_name" [(ngModel)] ="first_name">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control empty" placeholder="Last Name" id="inputLName" name="last_name" [(ngModel)] ="last_name">
+          </div>
+          <div class="form-group">
+            <input type="email" class="form-control empty" placeholder="Email" id="inputEmail" name="email" [(ngModel)] ="email" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #emaill="ngModel" required>
+          </div>
+          <div *ngIf="emaill.invalid && ( emaill.touched)">
+              <div *ngIf="emaill.errors.required && emaill.touched" class="invalid text-right">* Email is required</div>
+              <div *ngIf="emaill.errors?.pattern && emaill.touched" class="invalid text-right">* Email must be a valid email address</div>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control empty" placeholder="Password" id="inputPassword" name="password" minlength="6" [(ngModel)] ="password"  #passwordd="ngModel" required>
+          </div>
+          <div *ngIf="passwordd.invalid && ( passwordd.touched)">
+              <div *ngIf="passwordd.errors.required && passwordd.touched" class="invalid text-right">* Password is required</div>
+              <div *ngIf="passwordd.errors?.minlength && passwordd.touched" class="invalid text-right">* Password must be atleast 6 characters long</div>
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control empty" placeholder="Confirm Password" id="inputPasswordCheck" minlength="6" name="confPass" [(ngModel)] = "confpass" #confPass="ngModel" (change)="checkPassword(password,confpass)" required>
+          </div>
+          <div *ngIf="confPass.invalid && (confPass.touched) || mismatch">
+              <div class="invalid text-right">* Password Mismatch</div>
+          </div>
+          <div class="form-group clearfix">
+            <div class="checkbox-custom checkbox-inline checkbox-primary float-left">
+              <input type="checkbox" id="inputCheckbox" name="term">
+              <label for="inputCheckbox"></label>
+            </div>
+            <p class="ml-35">By clicking Sign Up, you agree to our <a href="#">Terms</a>.</p>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" [disabled]="mismatch || !email">Sign Up</button>
+        </form>
+
+        <p>Have account already? Please go to <a class="gotoSignIn" [routerLink]="['/login']">Sign In</a></p>
+
+        <footer class="page-copyright">
+          <p>WEBSITE BY Mascot Software Technologies</p>
+          <p>© 2018. All RIGHT RESERVED.</p>
+          <div class="social">
+            <a class="btn btn-icon btn-round social-facebook mx-5" (click)="socialSignIn('facebook')">
+              <i class="icon bd-facebook" aria-hidden="true"></i>
+            </a>
+            <a class="btn btn-icon btn-round social-google-plus mx-5" (click)="socialSignIn('google')">
+              <i class="icon bd-google-plus" aria-hidden="true"></i>
+            </a>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Page -->

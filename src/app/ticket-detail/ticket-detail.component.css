@@ -1,0 +1,32 @@
+.commentBox{border: 1px solid #ccc;margin-top: 10px;}
+
+.replyDiv{min-height: 200px; height: 350px; overflow-y: scroll;}
+.card{margin-bottom:10px;}
+.md-edit:before{font-size:18px;}
+.md-plus:before {font-weight: bold;}
+.md-close-circle-o:before{font-size:18px;}
+.bb{border-bottom: 1px solid #e0e0e0;}
+.scroll{overflow-y:scroll;  height:200px; border-top: 1px solid #0000001f;}
+.scrollMessages{overflow-y:scroll;  height:500px;}
+.file-upload{display:inline;}
+.file-upload__label {
+  display: inline;
+  padding: 5px;
+  color: #1e88e5;
+  transition: background .3s;
+}
+.file-upload__label:hover {
+     cursor: pointer;
+  }
+    
+.file-upload__input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    font-size: 1;
+    width:0;
+    height: 100%;
+    opacity: 0;
+}

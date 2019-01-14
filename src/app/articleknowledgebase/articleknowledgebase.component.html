@@ -1,0 +1,55 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="container p-20">
+    <div class="card p-10 mb-10">
+        <h4> New Knowledgebase Article </h4>
+    </div>
+	<div class="row justify-content-md-center">
+		<div class="col-md-12 mt-4">
+			<div class="panel">
+				<div class="panel-body p-10">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="new_article_outer p-10 row">
+								<div class="col-md-11">
+									<form #newknowledgebasearticle = "ngForm" (ngSubmit) = "onClickarticle(newknowledgebasearticle.value)">
+										<div class="form-group" data-plugin="formMaterial">
+											<label class="form-control-label" for="select">Subject : </label>
+											<input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" [(ngModel)]="subject" autocomplete="off">
+										</div>
+										<div class="radio-custom radio-primary col-md-3 inline-block">
+											<input type="radio" id="articletype2" name="articletype" [value]="0" [(ngModel)]="articletype">
+											<label for="articletype2">Private</label>
+										</div>
+										<div class="radio-custom radio-primary col-md-3 inline-block">
+											<input type="radio" id="articletype1" name="articletype" [value]="1" [(ngModel)]="articletype">
+											<label for="articletype1">Published</label>
+										</div>
+										<!--<div class="radio-custom radio-primary col-md-3 inline-block">
+											<input type="radio" id="articletype3" name="articletype" [value]="3" [(ngModel)]="articletype">
+											<label for="articletype3">Draft</label>
+										</div>-->
+										<div  class="form-group" data-plugin="formMaterial" >
+											<label class="form-control-label" for="textarea">Content: </label>
+											<quill-editor name="content" [(ngModel)]="content">
+												    
+											</quill-editor>
+										</div>
+										<!--<div [innerHTML]="content"></div>-->
+										<div class="form-group" data-plugin="formMaterial">
+											<label class="form-control-label" for="textarea">Keyword: </label>
+											<textarea class="form-control" id="keywords" name="keywords" rows="3" [(ngModel)]="keywords"></textarea>
+										</div>
+										<div class="">
+											<button *ngIf="article_id" type="button" class="btn btn-primary waves-effect waves-classic mr-2" id="update" (click)="onUpdateaeticle(article_id)">Update</button>
+											<button *ngIf="parent_cat" type="submit" class="btn btn-primary waves-effect waves-classic mr-2" id="save" [disabled]="!subject">Save</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div><!-- row -->
+				</div><!-- pannel-body -->
+			</div><!-- panel -->
+		</div><!-- col-md-9 -->
+	</div><!-- row -->
+</div><!-- container-fluid-->

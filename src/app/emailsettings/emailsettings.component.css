@@ -1,0 +1,20 @@
+.relative { position: relative; }
+.add_new_email, .ban_new_email { position: absolute; right:55px; top: -45px; }
+.outer_border { border: 1px solid #dee2e6;  padding: 10px; border-radius: 5px; }
+.panel-heading + .panel-body { padding: 10px 30px; }
+.edit_newEmail, .delete_newEmail { display: inline-block; padding: 10px 8px; }
+.bl{border-left: 1px solid;} .plr-5{padding:0 5px;}
+.tag{color: #af6767; text-decoration: underline;}
+
+@media screen and (max-width:767px){
+	.settings_tabs{display:none;}
+	.add_new_email, .ban_new_email { right: 18px; top: -45px; }
+	.dropdown i { margin-top: 13px; font-size: 22px; }
+	.res_btn { position: relative; right: 10px; top: -80px; }
+	.responsive_tabs { clear: both; top:-50px; }
+	.responsive_tabs a { cursor:pointer;}
+	.tab-pane { clear:both;}
+}
+@media screen and (min-width:768px){
+	.res_btn {display:none;}
+}

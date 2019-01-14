@@ -1,0 +1,26 @@
+.headerborder{height:50px;width:100%;text-align:center;padding:10px;}
+.divsaperateborder{border:2px solid #d6d9dc;border-radius:5px;margin-top:10px;}
+.helpdesktxt {vertical-align: middle;line-height: 40px;color:#ffffff;}
+.pdTpBt-3{padding-top:3px;padding-bottom:3px;}
+.pd-20{padding:20px}
+.fa-search{font-size:22px;}
+.fa-ticket{font-size:40px;}
+.pd-36{padding-top:36px;}
+.pdBt-20{padding-bottom:20px;}
+.pdTp-30{padding-top:30px;}
+.pdTpBt-20{padding-top:20px;padding-bottom:20px;}
+.pdTpBt-10{padding-top:10px;padding-bottom:10px;}
+.pdLtRt-10{padding-left:10px;padding-right:10px;}
+.usrprfimg {width: 30px;margin-right: 6px;}
+.btnuser{background-color:#3b3b43;color:#ffffff;padding: 0px;margin: 25px 0;}
+.btnuser:focus{ box-shadow: none; }
+.headertitle {background-color: #3b3b43;color:#ffffff;}
+.mgb-10 {margin-bottom: 10px;}
+.btn-full{width:100%;}
+.btn-clr {background-color: #009688;border: 1px solid #009688;color:#ffffff;}
+.searchRes{margin-top: 15px; border: 1px solid #f3e9e9;padding:15px 25px; background: #f5f5060f;}
+.searchRes li {padding: 5px;}
+.pull-right {float: right;}
+.vwentcollp{cursor:pointer;}
+.vwentcollp:hover{text-decoration:underline;}
+.verticalscrollbar{overflow-x:auto;}

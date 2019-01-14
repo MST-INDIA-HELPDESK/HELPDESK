@@ -1,0 +1,7 @@
+.show_subcategory_outer, .view_knowledgebase_outer  { border: 1px solid #dee2e6; padding: 10px; border-radius:5px; }
+.view_knowledgebase_outer table td { border-top: none; border-bottom: 1px solid #dee2e6; }
+.article_title{font-weight: 400;font-size: 14px;}
+.category_title i, .article_title i { font-size: 20px; }
+.sub-cat { clear: both; }
+.md-delete:before {font-size: 18px;}
+.cat_title { cursor: pointer; }

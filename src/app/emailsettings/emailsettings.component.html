@@ -1,0 +1,332 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="row pt-10 ml-0 mr-0">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+		<div class="panel">
+			<div class="panel-heading">
+    			<h3 class="panel-title">Email Setting</h3>
+    		</div>
+    	</div>
+    </div>
+ </div>
+<div class="row pb-20 ml-0 mr-0">
+	<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+		<!-- Example Tabs Line -->
+      	<div class="nav-tabs-horizontal" data-plugin="tabs">
+      		<button type="button" class="btn btn-primary float-right res_btn" data-toggle="collapse" data-target="#exampleCollapseExample"
+                aria-expanded="false" aria-controls="exampleCollapseExample" (click)="toggle()">
+                <i aria-hidden="true" class="icon md-more"></i>
+            </button>
+            <div class="collapse" id="exampleCollapseExample" *ngIf="show">
+            	<div class="nav nav-tabs nav-tabs-line panel mb-0 p-5 responsive_tabs " role="tablist">
+					<a class="dropdown-item" data-toggle="tab" href="#tab-0" aria-controls="tab-0" role="tab" (click)="getData('chknewemail'); toggle();">Emails</a>
+					<a class="dropdown-item" data-toggle="tab" href="#tab-1" aria-controls="tab-1" role="tab" (click)="getData('chknewemail'); toggle();">Settings</a>
+					<a class="dropdown-item" data-toggle="tab" href="#tab-2" aria-controls="tab-2" role="tab" (click)="getData('chkbannedemail'); toggle();" >Banlist</a>
+					<a class="dropdown-item" data-toggle="tab" href="#tab-3" aria-controls="tab-3" role="tab" (click)="getEmailTemp(); toggle();">Templates</a>
+				</div>
+            </div>
+      		
+            <ul class="nav nav-tabs nav-tabs-line settings-tabs panel mb-0 p-5 settings_tabs" role="tablist">
+				<li class="nav-item" role="presentation" (click)="onTabChange()">
+					<a class="nav-link active" data-toggle="tab" href="#tab-0"
+					aria-controls="tab-0" role="tab" (click)="getData('chknewemail')">Emails</a>
+				</li>
+				<li class="nav-item" role="presentation">
+					<a class="nav-link" data-toggle="tab" href="#tab-1"
+					aria-controls="tab-1" role="tab" (click)="getData('chknewemail')">Settings</a>
+				</li>
+				<li class="nav-item" role="presentation" (click)="onTabChange()">
+					<a class="nav-link" data-toggle="tab" href="#tab-2"
+					aria-controls="tab-2" role="tab" (click)="getData('chkbannedemail')">Banlist</a>
+				</li>
+				<li class="nav-item" role="presentation" (click)="onTabChange()">
+					<a class="nav-link" data-toggle="tab" href="#tab-3"
+					aria-controls="tab-3" role="tab" (click)="getEmailTemp()">Templates</a>
+				</li>
+            </ul>
+            
+            <div class="tab-content">
+                <div class="tab-pane active" id="tab-0" role="tabpanel">
+                	<div class="row justify-content-center">
+						<div class="col-md-12">
+							<div class="" [hidden]="openform">
+							<div class="add_new_email">
+								<button type="button" class="btn btn-primary waves-effect waves-classic" (click)="onClickOpenForm()">
+								Add New Email
+								</button>
+							</div>
+							</div>
+							<div [hidden]="openform">
+						       <div class="example example-well mt-0 pt-10 pr-0 pb-10 pl-0 mb-0"  *ngFor="let item of Settingsemails">
+							        <div id="examplePanel" class="panel mb-0">
+							          <div class="panel-heading"></div>
+							          <div class="panel-body row">
+							            <div class="col-lg-11 col-md-11 col-sm-11 col-10 p-5 pointer">
+							            	<span (click)="editnewOrBannedEmail(item.id, 'chknewemail')">
+							            		{{item.email}}
+							            	</span>
+							            </div>
+							            <div class="col-lg-1 col-md-1 col-sm-1 col-2 pointer">
+											<span class="delete_newEmail float-right" (click)="delnewOrBannedEmail(item.id, 'chknewemail')"><i class="icon md-delete"></i></span>
+							            </div>  
+							          </div>
+							        </div>
+							    </div>
+						  	</div>
+							<div *ngIf="openform">
+								<div class="example example-well mt-0 pt-10 pr-0 pb-10 pl-0 mb-0">
+									<div  class="panel">
+										<div class="panel-body">
+											<div class="form-group">
+												<input type="email" placeholder="Email address" class="form-control form-control-sm col-md-6" id="email" name="email" [(ngModel)]="email" required>
+											</div>
+											<div class="" *ngIf="!edit">
+												<button type="submit" class="display-inline btn btn-primary waves-effect waves-classic mr-2" id="save" [disabled]="!email || !typeid" (click)="saveOrBanEmailAddr(email, 'new')">Save</button>
+											</div>
+											<div *ngIf="edit">
+								   		     	<button class="btn btn-primary" (click)="updateNewOrBanEmailAddr(email,eid, 'new')" [disabled]="!typeid"> Update </button>
+								   		     	<!-- <button  class="btn btn-primary ml-2" (click)="reset(); onTabChange();"> Cancel </button>-->
+								   		    </div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                </div>
+                <div class="tab-pane" id="tab-1" role="tabpanel">
+                	<div class="row justify-content-center">
+						<div class="col-md-12">
+							<div class="example example-well mt-0 pt-10 pr-0 pb-10 pl-0 mb-0">
+								<div class="panel">
+									<div class="panel-body">
+			                    		<div class="form-group row col-md-12">
+				                    		<label class="form-control-label col-md-3" for="select">Default Template Set:</label>
+											<div class="col-md-9">
+												<ng-select name="default_temp" [(ngModel)]="default_temp" [searchable]="false">
+													<ng-option value="{{ item.name }}" *ngFor="let item of email_templates">{{ item.name }}</ng-option>
+												</ng-select>
+											</div>
+										</div>
+										<div class="form-group row col-md-12">
+										<label class="form-control-label col-md-3" for="select">Default System Email :</label>
+										<div class="col-md-9">
+											<ng-select name="defaultSysEmail" [(ngModel)]="defaultSysEmail" [searchable]="false">
+												<ng-option value="{{ item.email }}" *ngFor="let item of Settingsemails">{{ item.email }}</ng-option>
+											</ng-select>
+										</div>
+										</div>
+										<div class="form-group row col-md-12">
+										<label class="form-control-label col-md-3" for="select">Default Alert Email :</label>
+										<div class="col-md-9">
+											<ng-select name="defaultAlertEmail" [(ngModel)]="defaultAlertEmail" [searchable]="false">
+												<ng-option value="{{ item.email }}" *ngFor="let item of Settingsemails">{{ item.email }}</ng-option>
+											</ng-select>
+										</div>
+										</div>
+										<div class="form-group row col-md-12">
+											<label class="form-control-label col-md-3">Admin's Email Address :</label>
+											<input type="email" placeholder="Admin's Email" class="form-control form-control-sm col-md-9" id="adminemail" name="adminemail" [(ngModel)]="adminemail">
+										</div>
+										<div class="row col-md-12">
+											<div class="panel-heading">
+												<h4 class="">SMTP Settings :</h4>
+											</div>
+										</div>
+										<div class="form-group row col-md-12">
+											<label class="form-control-label col-md-3">Hostname :</label>
+											<input type="text" placeholder="Host name" class="form-control form-control-sm col-md-9" id="hostname" name="hostname" [(ngModel)]="hostname">
+										</div>
+										<div class="form-group row col-md-12">
+											<label class="form-control-label col-md-3">Port Number :</label>
+											<input type="text" class="form-control form-control-sm col-md-2" id="portno" name="portno" [(ngModel)]="portno">
+										</div>
+										<div class="form-group row col-md-12">
+											<label class="form-control-label col-md-3" for="secure">Secure :</label>
+											<div class="radio-custom radio-primary col-md-3">
+												<input type="radio" id="secure" name="secure" [value]="0" [(ngModel)]="secure">
+												<label for="secure">False</label>
+											</div>
+											<div class="radio-custom radio-primary col-md-3">
+												<input type="radio" id="secure1" name="secure" [value]="1" [(ngModel)]="secure" checked="">
+												<label for="secure1">True</label>
+											</div>
+										</div>
+										<div class="form-group row col-md-12">
+											<label class="form-control-label col-md-3" for="Authentication">Authentication Required :</label>
+											<div class="radio-custom radio-primary col-md-3">
+												<input type="radio" id="Authentication" name="Authentication" [value]="0" [(ngModel)]="Authentication">
+												<label for="Authentication">Off</label>
+											</div>
+											<div class="radio-custom radio-primary col-md-3">
+												<input type="radio" id="Authentication1" name="Authentication" [value]="1" [(ngModel)]="Authentication" checked="">
+												<label for="Authentication1">On</label>
+											</div>
+										</div>
+										<div class="form-group row col-md-12">
+											<label class="form-control-label col-md-3" for="encryption">Email Encryption :</label>
+											<div class="radio-custom radio-primary col-md-3">
+												<input type="radio" id="encryption" name="encryption" [value]="0" [(ngModel)]="encryption">
+												<label for="encryption">SSL</label>
+											</div>
+											<div class="radio-custom radio-primary col-md-3">
+												<input type="radio" id="encryption1" name="encryption" [value]="1" [(ngModel)]="encryption" checked="">
+												<label for="encryption1">TLS</label>
+											</div>
+										</div>
+										<div class="form-group row col-md-12">
+											<label class="form-control-label col-md-3">Header Spoofing :</label>
+											<div class="checkbox-custom checkbox-primary">
+							                    <input type="checkbox" id="header_spoofing" name="header_spoofing" [(ngModel)]="header_spoofing">
+							                    <label for="header_spoofing">Allow for this email</label>
+							                </div>
+										</div>
+										
+										<div class="form-group row col-md-12" *ngIf="!edit">
+											<button class="display-inline btn btn-primary waves-effect waves-classic mr-2" (click)="saveEmailGenSettings(default_temp, defaultSysEmail, defaultAlertEmail, adminemail, hostname, portno, secure, Authentication, encryption, header_spoofing)" [disabled]="!typeid">Save</button>
+										</div>
+										<div class="form-group row col-md-12" *ngIf="edit">
+							   		     	<button class="btn btn-primary" (click)="updateEmailGenSettings(default_temp, defaultSysEmail, defaultAlertEmail, adminemail, hostname, portno, secure, Authentication, encryption, header_spoofing)" [disabled]="!typeid"> Update </button>
+							   		    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+                </div>
+                <div class="tab-pane" id="tab-2" role="tabpanel">
+                	<div class="row justify-content-center">
+						<div class="col-md-12">
+							<div class="" [hidden]="openform">
+							<div class="ban_new_email">
+								<button type="button" class="btn btn-primary waves-effect waves-classic" (click)="onClickOpenForm()">
+								Ban Email
+								</button>
+							</div>
+							</div>
+							<div [hidden]="openform">
+								<div class="example example-well mt-0 pt-10 pr-0 pb-10 pl-0 mb-0"  *ngFor="let item of Settingsemails">
+							        <div id="examplePanel" class="panel mb-0">
+							          <div class="panel-heading"></div>
+							          <div class="panel-body row">
+							            <div class="col-lg-11 col-md-11 col-sm-11 col-10 p-5 pointer">
+							            	<span (click)="editnewOrBannedEmail(item.id, 'chkbannedemail')">
+							            		{{item.email}}
+							            	</span>
+							            </div>
+							            <div class="col-lg-1 col-md-1 col-sm-1 col-2 pointer">
+											<span class="delete_newEmail float-right" (click)="delnewOrBannedEmail(item.id, 'chkbannedemail')"><i class="icon md-delete"></i></span>
+							            </div>  
+							          </div>
+							        </div>
+							    </div>
+						  	</div>
+								  	
+							<div *ngIf="openform">
+								<div class="example example-well mt-0 pt-10 pr-0 pb-10 pl-0 mb-0">
+									<div  class="panel">
+										<div class="panel-body">
+											<div class="form-group">
+												<input type="email" placeholder="Email address" class="form-control form-control-sm col-md-6" id="bannedemail" name="email" [(ngModel)]="email" required>
+											</div>
+											<div class="" *ngIf="!edit">
+												<button type="submit" class="display-inline btn btn-primary waves-effect waves-classic mr-2" id="save"  [disabled]="!email || !typeid" (click)="saveOrBanEmailAddr(email, 'banned')">Save</button>
+												
+											</div>
+											<div *ngIf="edit">
+							   		     		<button class="btn btn-primary" (click)="updateNewOrBanEmailAddr(email, eid, 'banned')" [disabled]="!typeid"> Update </button>
+							   		     		<!-- <button  class="btn btn-primary ml-2" (click)="reset(); onTabChange();"> Cancel </button>-->
+							   		    	</div>
+				   		    			</div>
+				   		    		</div>
+				   		    	</div>
+							</div>
+								
+						</div>
+					</div>
+                </div>
+                <div class="tab-pane" id="tab-3" role="tabpanel">
+                    <div class="row justify-content-center">
+						<div class="col-md-12">
+							<div class="" [hidden]="openform">
+							<div class="add_new_email">
+								<button type="button" class="btn btn-primary waves-effect waves-classic" (click)="onClickOpenForm()">
+								Add New Email Template
+								</button>
+							</div>
+							</div>
+							<div [hidden]="openform">
+						    	<div class="example example-well mt-0 pt-10 pr-0 pb-10 pl-0 mb-0 noborder" *ngFor="let item of email_templates">
+									<div id="examplePanel" class="panel mb-0">
+									<div class="panel-heading"></div>
+									<div class="panel-body row">
+									<div class="col-lg-10 col-md-10 col-sm-10 col-8 p-5 pointer">
+										<span (click)="editEmailTemp(item.id)">
+											{{item.name}}
+										</span>
+									</div>
+									<div class="col-lg-1 col-md-1 col-sm-1 col-2 p-5">
+										<span *ngIf ="item.status == 0">
+											OFF
+										</span>
+										<span *ngIf ="item.status !== 0">
+											ON
+										</span>
+									</div>
+									<div class="col-lg-1 col-md-1 col-sm-1 col-2 pointer">
+										  <span class="delete_newEmail float-right" (click)="delEmailTemp(item.id)"><i class="icon md-delete"></i></span>
+							            </div>
+									</div>
+									</div>
+								</div>
+						  	</div>
+							<div *ngIf="openform" class="example example-well mt-0 pt-10 pr-0 pb-10 pl-0 mb-0">
+								<div class="panel">
+									<div class="panel-body">
+										<div class="form-group row col-md-6">
+											<label class="form-control-label col-md-3">Name :</label>
+											<input type="text" class="form-control form-control-sm col-md-9" id="temp_name" name="temp_name" [(ngModel)]="temp_name">
+										</div>
+										<div class="form-group row col-md-6">
+											<label class="form-control-label col-md-3" for="temp_status">status :</label>
+											<div class="radio-custom radio-primary col-md-3">
+												<input type="radio" id="temp_status" name="temp_status" [value]="0" [(ngModel)]="temp_status">
+												<label for="temp_status">Off</label>
+											</div>
+											<div class="radio-custom radio-primary col-md-3">
+												<input type="radio" id="temp_status1" name="temp_status" [value]="1" [(ngModel)]="temp_status" checked="">
+												<label for="temp_status1">On</label>
+											</div>
+										</div>
+										<div class="form-group row col-md-12">
+											<quill-editor #tempcontent  id="editorContent" style="display:inline" name="content" (click)="getCaretPos(tempcontent)" (keyup)="getCaretPos(tempcontent)" [(ngModel)]="content">
+								    			
+											</quill-editor>
+										
+											<div>
+												Insert special tag (will be replaced with customer info dynamically)
+												<div class="row p-10 tag">
+												    <a  class="plr-5 bl" (click)="addTag('ticket_id')">Ticket_id</a>
+													<a  class="plr-5 bl" (click)="addTag('date')">Date</a>
+									    			<a  class="plr-5 bl" (click)="addTag('user_name')">User-Name</a>
+									    			<a  class="plr-5 bl" (click)="addTag('subject')">Subject</a>
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group row col-md-6" *ngIf="!edit">
+											<button type="submit" class="display-inline btn btn-primary waves-effect waves-classic mr-2" id="save" (click)="saveNewEmailTemp(temp_name, temp_status, content);">Add Template</button>
+										</div>
+										<div class="form-group row col-md-6" *ngIf="edit">
+							   		     	<button class="btn btn-primary" (click)="updateEmailTemp(eid,temp_name, temp_status, content)"> Update </button>
+							   		    </div>
+						   		    </div>
+					   		    </div>
+							</div>
+						</div>
+					</div>
+                </div>
+            </div>
+      	</div>
+    <!-- End Example Tabs Line -->
+	</div>
+</div>

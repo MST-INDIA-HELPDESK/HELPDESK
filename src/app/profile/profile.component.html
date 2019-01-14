@@ -1,0 +1,214 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="row pt-10 ml-0 mr-0">
+	<div class="col-md-4 col-lg-4" *ngFor="let item of profileData">
+		<div class="panel mb-10 noshadow">
+			<div class="panel-body">
+				<form #updateProfilePic = "ngForm" enctype="multipart/form-data">
+					<div class="avatar-upload">
+				        <div class="avatar-edit">
+				            <input type='file' id="imageUpload" name="image" (change)="onSelectFile($event)"/>
+				            <label for="imageUpload"><i class="icon md-edit" aria-hidden="true"></i></label>
+				        </div>
+				        <div class="avatar-preview">
+				            <div id="imagePreview">
+				            	<span *ngIf="onSelected">
+				            		<img src="{{ profile_photo | dynamicImgSrc }}">
+				            	</span>
+				            	<span *ngIf="img_show">
+				            		<img src="{{ item.profile_pic | dynamicImgSrc }}">
+				            	</span>
+				            </div>
+				        </div>
+					</div>
+				</form>
+				<div class="text-center">
+				<div class="form-group form-material">
+					<label class="form-control-label"> {{ item.first_name }} {{ item.last_name }} </label>
+				</div>
+				<div class="form-group form-material">
+					<label class="form-control-label"> {{ item.company }}  </label>
+				</div>
+				<div class="form-group form-material">
+					<label class="form-control-label"> {{ item.email }} </label>
+				</div>
+				<div class="form-group form-material">
+					<label class="form-control-label"> {{ item.phone }}</label>
+				</div>
+				<div class="form-group form-material">
+					<a href="#" data-toggle="modal" data-target="#changePassModal" class="">Change Password</a>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-md-8 col-lg-8">
+		<div class="panel mb-10 noshadow">
+			<div class="panel-body">
+				<!-- Example Tabs Line -->
+                <div class="m-xl-0">
+                  	<div class="nav-tabs-horizontal" data-plugin="tabs">
+                  		<button type="button" class="btn btn-primary float-right res_btn" data-toggle="collapse" data-target="#exampleCollapseExample"
+		                    aria-expanded="false" aria-controls="exampleCollapseExample" (click)="toggle()">
+		                    <i aria-hidden="true" class="icon md-more"></i>
+		                </button>
+		                <div class="collapse" id="exampleCollapseExample" *ngIf="show">
+		                	<div class="nav nav-tabs nav-tabs-line panel mb-0 p-5 responsive_tabs " role="tablist">
+								<a class="dropdown-item" data-toggle="tab" href="#exampleTabsLineOne" aria-controls="exampleTabsLineOne" role="tab" (click)="toggle();">Profile Information</a>
+								<a class="dropdown-item" data-toggle="tab" href="#exampleTabsLineTwo" aria-controls="exampleTabsLineTwo" role="tab" (click)="toggle();">Signature</a>
+								<a class="dropdown-item" data-toggle="tab" href="#exampleTabsLineThree" aria-controls="exampleTabsLineThree" role="tab" (click)="toggle();" >Preferences</a>
+								<a class="dropdown-item" data-toggle="tab" href="#exampleTabsLineFour" aria-controls="exampleTabsLineFour" role="tab" (click)="toggle();">Notifications</a>
+							</div>
+		                </div>
+		                
+	                    <ul class="nav nav-tabs nav-tabs-line profile_tabs" role="tablist">
+	                      <li class="nav-item" role="presentation"><a class="nav-link active" data-toggle="tab" href="#exampleTabsLineOne"
+	                          aria-controls="exampleTabsLineOne" role="tab">Profile Information</a></li>
+	                      <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#exampleTabsLineTwo"
+	                          aria-controls="exampleTabsLineTwo" role="tab">Signature</a></li>
+	                      <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#exampleTabsLineThree"
+	                          aria-controls="exampleTabsLineThree" role="tab">Preferences</a></li>
+	                      <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#exampleTabsLineFour"
+	                          aria-controls="exampleTabsLineFour" role="tab">Notifications</a></li>
+	                    </ul>
+	                    <div class="tab-content pt-20">
+		                    <div class="tab-pane active" id="exampleTabsLineOne" role="tabpanel">
+		                        <form #updateProfile = "ngForm" (ngSubmit) ="onClickSubmit(updateProfile.value)" *ngFor="let item of profileData">
+				            	<div class="form-group form-material">
+				                  <input type="text" class="form-control" name="first_name" placeholder="Name" [(ngModel)]="item.first_name" autocomplete="off">
+				                </div>
+				                <div class="form-group form-material">
+				                  <input type="text" class="form-control" name="last_name" placeholder="Name" [(ngModel)]="item.last_name" autocomplete="off">
+				                </div>
+				                <div class="form-group form-material">
+				                  <input type="text" class="form-control" name="company_name" placeholder="Company Name" [(ngModel)]="item.company" autocomplete="off">
+				                </div>
+				                <div class="form-group form-material">
+				                  <input type="text" class="form-control" name="address" placeholder="Address" [(ngModel)]="item.address" autocomplete="off">
+				                </div>
+								<div class="form-group form-material">
+									<input type="email" class="form-control" name="email" placeholder="Email Address" [(ngModel)]="item.email" autocomplete="off" readonly>
+								</div>
+								<div class="form-group form-material">
+									<input type="text" class="form-control" name="phone_no" placeholder="Contact No" [(ngModel)]="item.phone" autocomplete="off">
+								</div>
+								<div class="form-group form-material">
+									<input type="text" class="form-control" name="facebook" placeholder="Facebook" [(ngModel)]="item.facebook" autocomplete="off">
+								</div>
+								<div class="form-group form-material">
+									<input type="text" class="form-control" name="twitter" placeholder="Twitter" [(ngModel)]="item.twitter" autocomplete="off">
+								</div>
+				              	<div class="form-group">
+				                	<button type="submit" class="btn btn-primary waves-effect waves-classic">Save Changes</button>
+				              	</div>
+				            	</form>
+		                    </div>
+		                    <div class="tab-pane" id="exampleTabsLineTwo" role="tabpanel">
+		                    	<form #updateSign = "ngForm" (ngSubmit) ="updateSignature(updateSign.value)" *ngFor="let item of profileData">
+		                    		<div class="form-group">
+		                    			<textarea class="form-control" name="signature" id="signature" [(ngModel)]="item.signature" rows="5"></textarea>
+		                    		</div>
+		                    		<div class="form-group">
+				                		<button type="submit" class="btn btn-primary waves-effect waves-classic" [disabled]="!updateSign.value?.signature">Save Changes</button>
+				              		</div>
+		                    	</form>
+		                    </div>
+			                <div class="tab-pane" id="exampleTabsLineThree" role="tabpanel">
+			                	<b>After replying to a ticket:</b>
+			                	<form #preferences = "ngForm" (ngSubmit) ="profile_preferences(preferences.value)">
+			                		<div class="form-group">
+					                	<div class="radio-custom radio-primary col-md-12">
+											<input type="radio" id="show_tckt" name="after_replying" [value]="0" [(ngModel)]="after_replying">
+											<label for="show_tckt">Show the ticket I just replied to</label>
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="radio-custom radio-primary col-md-12">
+											<input type="radio" id="rtn_main_pg" name="after_replying" [value]="1" [(ngModel)]="after_replying">
+											<label for="rtn_main_pg">Return to main administration page</label>
+										</div>
+									</div>
+									<div class="form-group">
+				                		<button type="submit" class="btn btn-primary waves-effect waves-classic">Save Changes</button>
+				              		</div>
+								</form>
+			                </div>
+			                <div class="tab-pane" id="exampleTabsLineFour" role="tabpanel">
+			                	<b>The helpdesk will send an  notification when:</b>
+			                	
+								<form #notifications = "ngForm" (ngSubmit) ="profile_notifications(notifications.value)">
+									<div class="form-group">
+					                    <div class="radio-custom radio-primary col-md-12">
+						                    <input type="radio" id="unassigned" name="assigned_to_admin" [value]="0" [(ngModel)]="assigned_to_admin">
+						                    <label for="unassigned">A new ticket is submitted with owner: Unassigned</label>
+						                </div>
+						            </div>
+						            <div class="form-group">
+						                <div class="radio-custom radio-primary col-md-12">
+						                    <input type="radio" id="assigned" name="assigned_to_admin" [value]="1" [(ngModel)]="assigned_to_admin">
+						                    <label for="assigned">A new ticket is submitted with owner: Assigned to me</label>
+						                </div>
+						            </div>
+					                <div class="form-group">
+				                		<button type="submit" class="btn btn-primary waves-effect waves-classic">Save Changes</button>
+				              		</div>
+				                </form>
+				                <!-- 
+				                <div class="checkbox-custom checkbox-primary">
+				                    <input type="checkbox" id="inputChecked3" checked="">
+				                    <label for="inputChecked3">Checked</label>
+				                </div>
+				                <div class="checkbox-custom checkbox-primary">
+				                    <input type="checkbox" id="inputChecked4" checked="">
+				                    <label for="inputChecked4">Checked</label>
+				                </div>
+				                <div class="checkbox-custom checkbox-primary">
+				                    <input type="checkbox" id="inputChecked5" checked="">
+				                    <label for="inputChecked5">Checked</label>
+				                </div>
+				                -->
+			                </div>
+	                    </div>
+                  	</div>
+                </div>
+                <!-- End Example Tabs Line -->
+
+	<!-- Modal -->
+	<div class="modal fade" id="changePassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<form #UpdatePassword = "ngForm" (ngSubmit) ="changePassword(UpdatePassword.value)" >
+				<div class="modal-content">
+					<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					  <span aria-hidden="true">&times;</span>
+					</button>
+					</div>
+					<div class="modal-body">
+			            <div ngModelGroup="password" #userPassword="ngModelGroup" >
+			            <div class="form-group form-material">
+			                <input type="password" class="form-control" [(ngModel)]="pwd" name="pwd" placeholder="Password" autocomplete="off" required>
+			            </div>
+			            <div class="form-group form-material">
+			                <input type="password" class="form-control" [(ngModel)]="confirmPwd" name="confirmPwd" placeholder="Confirm Password" autocomplete="off" required>
+			            </div>
+			            </div>
+			             <div *ngIf="(userPassword.invalid|| userPassword.value?.pwd != userPassword.value?.confirmPwd) && (userPassword.touched)"  class="alert alert-danger">
+					     
+					    <div *ngIf = "userPassword.value?.pwd != userPassword.value?.confirmPwd;">
+					        Passwords don't match
+					    </div>
+					    </div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" (click)="UpdatePassword.reset()" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-primary" [disabled]="!userPassword.value?.pwd || userPassword.value?.pwd != userPassword.value?.confirmPwd">Change Password</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	</div>
+	</div>
+    </div>
+</div>

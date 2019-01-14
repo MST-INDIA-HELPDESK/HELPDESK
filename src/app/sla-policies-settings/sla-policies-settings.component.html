@@ -1,0 +1,95 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="row pt-10 ml-0 mr-0">
+	<div class="col-md-12 col-lg-12">
+		<div class="row panel m-0 p-5 mb-10 pl-10">
+    		<div class="col-md-8 col-8 panel-heading">
+        		<h4>SLA Policies</h4>
+        	</div>
+        	<div class="col-md-4 col-4 text-right mt-1">
+        		<div class="add_new" [hidden]="openform">
+					<button type="button" class="btn btn-primary waves-effect waves-classic" (click)="onClickOpenForm()">
+						Add New SLA Plan
+					</button>
+				</div>
+        	</div>
+        </div>
+	</div>
+</div>
+<div class="row pt-10 ml-0 mr-0">
+	<div class="col-md-12 col-lg-12">
+		<div [hidden]="openform">
+	       <div class="example example-well mt-0 pt-10 pr-0 pb-10 pl-0 mb-0"  *ngFor="let item of SLApolicy">
+		        <div id="examplePanel" class="panel mb-0">
+		          <div class="panel-heading"></div>
+		          <div class="panel-body row">
+		            <div class="col-lg-9 col-md-9 col-sm-9 col-7 p-5 pointer" (click)="editSLAPolicy(item.id)">
+		            	<span>
+		            		{{item.name}}
+		            	</span>
+		            </div>
+		            <div class="col-lg-2 col-md-2 col-sm-2 col-3 p-5 pointer" (click)="editSLAPolicy(item.id)">
+		            	<span *ngIf ="item.status == 0">
+							Inactive
+						</span>
+						<span *ngIf ="item.status !== 0">
+							Active
+						</span>
+		            </div>
+		            <div class="col-lg-1 col-md-1 col-sm-1 col-2 pointer">
+						<span class="delete_SLAPolicy float-right" (click)="delSLAPolicy(item.id)"><i class="icon md-delete"></i></span>
+		            </div>  
+		          </div>
+		        </div>
+		    </div>
+	  	</div>
+		<div *ngIf="openform">
+			<div class="example example-well mt-0 pt-10 pr-0 pb-10 pl-0 mb-0">
+				<div  class="panel">
+					<div class="panel-body">
+						<div class="form-group row col-md-12">
+							<label class="form-control-label col-md-3">Name :</label>
+							<div class="col-md-9">
+								<input type="text" placeholder="Name" class="form-control form-control-sm col-md-6" id="name" name="name" [(ngModel)]="name" required>
+							</div>
+						</div>
+						<div class="form-group row col-md-12">
+							<label class="form-control-label col-md-3">Grace Period :</label>
+							<div class="col-md-9">
+								<input type="text" placeholder="Grace Period" class="form-control form-control-sm col-md-6" id="grace_period" name="grace_period" [(ngModel)]="grace_period" required><span><i>(In hours)</i></span>
+							</div>
+						</div>
+						<div class="form-group row col-md-12">
+							<label class="form-control-label col-md-3" for="status">status :</label>
+							<div class="radio-custom radio-primary col-md-3">
+								<input type="radio" id="status" name="status" [value]="0" [(ngModel)]="status">
+								<label for="status">Off</label>
+							</div>
+							<div class="radio-custom radio-primary col-md-3">
+								<input type="radio" id="status1" name="status" [value]="1" [(ngModel)]="status" checked="">
+								<label for="status1">On</label>
+							</div>
+						</div>
+						<div class="form-group row col-md-12">
+							<label class="form-control-label col-md-3">Ticket Overdue Alerts :</label>
+							<div class="checkbox-custom checkbox-primary">
+			                    <input type="checkbox" id="overdue_alerts" name="overdue_alerts" [(ngModel)]="overdue_alerts">
+			                    <label for="overdue_alerts">Disable overdue alerts notices. (Override global setting)</label>
+			                </div>
+						</div>
+						<div class="form-group row col-md-12">
+							<quill-editor  id="notes" style="display:inline" name="notes" [(ngModel)]="notes">
+				    			
+							</quill-editor>
+						</div>
+						<div class="row col-md-12" *ngIf="!edit">
+							<button type="submit" class="display-inline btn btn-primary waves-effect waves-classic mr-2" id="save" [disabled]="!name || !grace_period || !typeid" (click)="saveSLApolicy(name, grace_period, status, overdue_alerts, notes)">Save</button>
+						</div>
+						<div class="row col-md-12" *ngIf="edit">
+			   		     	<button class="btn btn-primary" (click)="updateSLAPolicy(sid, name, grace_period, status, overdue_alerts, notes)" [disabled]="!typeid"> Update </button>
+			   		    </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

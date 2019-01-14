@@ -1,0 +1,206 @@
+<!-- Add filter to for loop - paginate: { itemsPerPage: 10, currentPage: p }" -->
+<div class="container-fluid">
+  	<div class="row back p-10">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+			<div class="row">
+				<div class="col-lg-1 col-md-1 col-sm-1 col-1 pr-0">
+					<div class="checkbox-custom checkbox-default ml-5 text-center">
+		    			<input type="checkbox" [(ngModel)]="allSelect" (change)="selectAll($event)"  />
+		    			<label></label>
+					</div>
+				</div>
+				<div  class="col-lg-11 col-md-11 col-sm-11 col-10">
+					<div  class="animation-fade animation-duration-3">
+						<div class="p-5">
+							<button type="button" [disabled]="!multiSelect" (click)="deleteTicket()" class="icon md-delete btn btn-outline-secondary btn-sm"> <span class="ml-1 small_hide">Delete</span></button>
+							<button type="button"  [disabled]="!multiSelect" data-original-title="Add Teams" data-container="body" data-target="#newAssignee" data-toggle="modal"  class="icon md-account-add btn btn-outline-secondary btn-sm ml-2"> <span class="ml-1 small_hide">Assignee</span></button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-6 col-6">
+			<div class="row">
+				<div class="col-12 text-right">
+					<div class="p-5">
+				        <button type="button" data-target="#newTicket" data-toggle="modal" class="icon md-plus btn btn-primary btn-sm mr-2">
+							<span class="ml-1 small_hide">New Ticket</span>
+							<span class="ml-1 large_hide">New</span>
+						</button>
+						<a class="filterMenu p-5" (click)="_toggleSidebar()" style="cursor: pointer;"><i class="icon md-filter-list"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="ticketList" [ngClass]="{'col-xl-12 col-lg-12  col-md-12 col-sm-12':!_opened,'col-xl-8 col-lg-8  col-md-8 col-sm-8':_opened}">
+    		<div class="example example-well mt-0 p-10 mb-0 noborder"  *ngFor="let i of tickets | paginate: { itemsPerPage: 6, currentPage: p }">
+				<div id="examplePanel" class="panel mb-0">
+					<div class="panel-heading">
+						<div class="panel-title">
+							<div class="checkbox-custom checkbox-default m-0">
+								<input type="checkbox" [(ngModel)]="i.selected" (change)="checkIfAllSelected($event,i.id)" />
+								<label></label>
+							</div>
+						</div>
+						<div class="panel-actions row panel-act">
+							<ng-select [items]="priorities" class="plr-5"  [clearable]="false"  bindLabel="priority"  bindValue="priority" (change)="update(i.priority,'priority',i.id,i.user_id)" [(ngModel)]="i.priority"></ng-select>
+							<ng-select [items]="ticketStatus" class="plr-5"  [clearable]="false"  bindLabel="status"  bindValue="id" (change)="update(i.status,'status',i.id,i.user_id)" [(ngModel)]="i.status"></ng-select>
+							<!--<ng-select [items]="agents" class="plr-5"  [clearable]="false"  bindLabel="assignee"  bindValue="id" [(ngModel)]="i.assignee"></ng-select>-->
+							<ng-select #api  class="plr-5" [(ngModel)]="i.assignee" [clearable]="false" (change)="update(i.assignee,'assignee',i.id,i.assignee)"  >
+							<ng-option *ngFor="let i of agents" [value]="i.id">{{i.assignee}}</ng-option>
+							<ng-template ng-header-tmp>
+							<input style="width: 100%;line-height: 28px; color:#000; padding:4px; border:none" placeholder="Search .." type="text" (input)="api.filter($event.target.value)" />
+							</ng-template>
+							</ng-select>
+						</div>
+					</div>
+					<div class="panel-body row">
+						<div class="col-lg-1 col-md-2 col-sm-2 col-3 nopad">
+							<span class="avatar text-center">
+							<img class="main-avatar" src="{{i.profile_pic | dynamicImgSrc }}" alt="...">
+							<h6 class="m-1 mob-in">{{i.user_name  | truncate : 9 }}</h6>
+							</span>
+						</div>
+						<div class="col-lg-11 col-md-10 col-sm-10 col-9 p-5 pointer" [routerLink]="['./ticketDetail',i.id,i.type]">
+							<h5>{{i.subject}}</h5>
+							<small>Created : {{i.created_date | timeDiff }}</small>
+						</div>
+					</div>
+					<div class="ribbon ribbon-clip ribbon-reverse ribbon-bottom ribbon-warning" *ngIf="i.status==1">
+						<span class="ribbon-inner" >Open</span>
+						</div>
+					<div class="ribbon ribbon-clip ribbon-reverse ribbon-bottom ribbon-danger" *ngIf="i.status==2">
+						<span class="ribbon-inner" >Closed</span>
+					</div>
+					<div class="ribbon ribbon-clip ribbon-reverse ribbon-bottom ribbon-success" *ngIf="i.status==3">
+						<span class="ribbon-inner" >Resolved</span>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="tickets==''" class="row m-10">
+	            <h5 class="card wd-100 p-10">No tickets found ....</h5>
+	        </div>
+		</div>
+		<div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-10 pr-0" [ngClass]="{'animation-slide-right':_opened}" *ngIf="_opened">
+			<div class="p-15 sidebar" >
+				<div class="row pl-18 fs-18"><b>Filters</b></div>
+				<div class="mt-5">
+					<span class="p-3 fs-13">Teams</span>
+					<ng-select [items]="teams"  (change)="filter(selectedTeam,'team')" class="mt-3" [multiple]="true" [clearable]="false" bindLabel="name"  bindValue="name" [(ngModel)]="selectedTeam"></ng-select>
+				</div>
+				<div class="mt-5">
+					<span class="p-3 fs-13">Status</span>
+					<ng-select [items]="ticketStatus"  (change)="filter(selectedStatus,'status')" class="mt-3" [multiple]="true" [clearable]="false" bindLabel="status"  bindValue="id" [(ngModel)]="selectedStatus"></ng-select>
+				</div>
+				<div class="mt-5">
+					<span class="p-3 fs-13">Priority</span>
+					<ng-select [items]="priorities"  (change)="filter(selectedPriority,'priorities')" class="mt-3" [multiple]="true" [clearable]="false" bindLabel="priority"  bindValue="priority" [(ngModel)]="selectedPriority"></ng-select>
+				</div>
+				<div class="mt-5">
+					<span class="p-3 fs-13">Agents</span>
+					<ng-select [items]="agents"  (change)="filter(selectedAgent,'agent')" class="mt-3" [multiple]="true" [clearable]="false" bindLabel="assignee"  bindValue="id" [(ngModel)]="selectedAgent"></ng-select>
+					</div>
+				<div class="mt-5">
+					<span class="p-3 fs-13">Tags</span>
+					<ng-select [items]="tags"  (change)="filter(selectedTag)" class="mt-3" [multiple]="true" [clearable]="false" bindLabel="tag_name"  bindValue="id" [(ngModel)]="selectedTag"></ng-select>
+				</div>
+				<div class="mt-5">
+					<span class="p-3 fs-13">Created Date</span>
+					<my-date-picker name="mydate" (dateChanged)="filter($event,'date');" [options]="myDatePickerOptions"
+					[(ngModel)]="createdDate" required></my-date-picker>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div *ngIf="tickets!=''" class="row back p-10 mt-10 paginationControl">
+		<div class="col-12 text-right">
+			<pagination-controls class="m-10" (pageChange)="p = $event"></pagination-controls>
+		</div>
+	</div>
+	<div #addAssignee class="modal fade modal-fade-in-scale-up" id="newAssignee" aria-hidden="true" aria-labelledby="exampleModalTitle" role="dialog" tabindex="-1">
+		<div class="modal-dialog modal-simple">
+			<form #addAssignee="ngForm" (ngSubmit)="assignTicket(multidAgent)">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+						</button>
+						<h4 class="modal-title">New Assignee</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Select Assignee </label>
+							<div class="mt-5">
+								<ng-select [items]="agents" name="agent" class="mt-3" [clearable]="true" bindLabel="email"  bindValue="email" [(ngModel)]="multidAgent"></ng-select>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div #createTicket class="modal fade modal-fade-in-scale-up" id="newTicket" aria-hidden="true" aria-labelledby="exampleModalTitle" role="dialog" tabindex="-1">
+		<div class="modal-dialog modal-simple">
+			<div class="modal-content" *ngFor="let user of user">
+				<form #genticket="ngForm" (ngSubmit)="newTicket(genticket.value)">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+						</button>
+						<h4 class="modal-title">New Ticket</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<input type="text" class="form-control" id="inputfn" name="firstnm" [readonly]="loggedIn" placeholder="First Name" [(ngModel)]="user.first_name" required>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control" id="inputln" name="lastnm" [readonly]="loggedIn" placeholder="Last Name" [(ngModel)]="user.last_name" required>
+						</div>
+						<div class="form-group">
+							<input #emailId="ngModel" type="text" class="form-control" id="uticketemail" [readonly]="loggedIn" name="uticketemail" placeholder=" Email Id" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [(ngModel)]="user.email" required>
+						</div>
+						<div *ngIf="emailId.invalid && (emailId.touched)">
+							<div *ngIf="emailId.errors.required && emailId.touched" class="invalid text-right">* Email is required</div>
+							<div *ngIf="emailId.errors?.pattern && emailId.touched" class="invalid text-right">* Email must be a valid email address</div>
+						</div>
+						<div class="form-group">
+							<ng-select [items]="topics" name="selectedCategory" class="mt-3" [multiple]="false" [clearable]="false" bindLabel="topic" bindValue="id" [(ngModel)]="selectedCategory"></ng-select>							
+						</div>
+						<div class="form-group">
+							<input  type="text"  class="form-control" id="usersubject" name="usersubject" placeholder="Subject" [(ngModel)]="user.subject" appAutofocus required>							
+						</div>
+						<div class="form-group">
+							<textarea  class="form-control" id="inputMsg" placeholder="Message" name="usermessage" rows="3" [(ngModel)]="user.message" required></textarea>
+						</div>
+						<div class="form-group">
+							<input type="file" #fileUpload class="form-control-file" id="attachFile" name="image" [(ngModel)]="user.file">
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="submit" id="subButton" class="btn btn-primary">Create Ticket</button>						
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" #newTicketId id="newTicketId" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content cst-modal panel panel-success panel-line">
+			<div class="modal-header panel-heading">
+				<h3 class="panel-title">Ticket Generated Successfully</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body panel-body">
+				Your Ticket Id: <b>#{{ticketId}}</b>
+			</div>
+		</div>
+	</div>
+</div>

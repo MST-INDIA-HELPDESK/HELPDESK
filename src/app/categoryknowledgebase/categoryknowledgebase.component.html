@@ -1,0 +1,39 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="container p-20">
+    <div class="row panel m-0 p-10">
+        <h4>New Knowledgebase Category</h4>
+     </div>
+	<div class="row justify-content-md-center">
+		<div class="col-md-12 mt-4">
+			<div class="panel">
+				<div class="panel-body p-10">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="new_category_outer mt-10 row">
+								<div class="col-md-10">
+									<form #newknowledgebasecategory = "ngForm" (ngSubmit) = "onClickcategory(newknowledgebasecategory.value)">
+										<div class="form-group">
+											<label>Category Title: </label>
+											<input type="text" class="form-control" id="cateorytitle" name="cateorytitle" [(ngModel)]="cateorytitle" placeholder="Category Title" autocomplete="off">
+										</div>
+										<div class="radio-custom radio-primary col-md-3 inline-block">
+											<input type="radio" id="type" name="type" value="1" [(ngModel)]="type" checked="">
+											<label for="type">Published</label>
+										</div>
+										<div class="radio-custom radio-primary col-md-3 inline-block">
+											<input type="radio" id="type1" name="type" value="0" [(ngModel)]="type">
+											<label for="type1">Private</label>
+										</div>
+										<div class="mt-20">
+											<button type="submit" class="btn btn-primary waves-effect waves-classic mr-2" id="savecategory" [disabled]="!cateorytitle">Add Category</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div><!-- row -->
+				</div><!-- pannel-body -->
+			</div><!-- panel -->
+		</div><!-- col-md-9 -->
+	</div><!-- row -->
+</div><!-- container-fluid-->

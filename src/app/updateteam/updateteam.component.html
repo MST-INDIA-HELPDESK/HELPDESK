@@ -1,0 +1,62 @@
+<app-breadcrumb></app-breadcrumb>
+<div class="page-content container-fluid p-15">
+  <div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <!-- Example Panel With Heading -->
+      <div class="panel panel-bordered">
+        <div class="panel-heading">
+          <h3 class="panel-title">Edit Team Details</h3>
+        </div>
+        <div class="panel-body">
+          <form #updateData="ngForm" (submit)="updateTeam(updateData.value)">
+            <div class="form-group">
+              <label>Team Name </label>
+              <input type="text" class="form-control" name="teamname" [(ngModel)]="teamname" placeholder="Enter Name" required />
+            </div>
+            <div class="form-group">
+              <label>Team Description </label>
+              <textarea class="form-control" name="teamdesc" [(ngModel)]="teamdesc" placeholder="Enter Description" required></textarea>
+            </div>            
+            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" class="btn btn-danger ml-10" (click)="back()">Cancel</button>
+          </form>
+        </div> 
+       </div>
+       <!--
+       <div class="panel panel-bordered">
+        <div class="panel-body">
+        	<div class="form-group">
+            <label>Add Members </label>
+            <ng-select [multiple]="true" [closeOnSelect]='true' [clearable]='false' name="selectedMembers" placeholder="Select Members" [(ngModel)]="selectedMembers" (add)="addMembers($event)" (remove)="removeMembers($event)">
+              <ng-option *ngFor="let item of users" [value]="item.id">{{item.name}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        </div>
+        -->
+      <!-- End Example Panel With Heading -->
+    </div>
+    <div class="col-lg-8 col-md-6 col-sm-12 teamMembers">
+      <div class="panel panel-bordered is-collapse" style="margin-bottom: 10px;">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ teamname }} : Team Members</h3>
+          <div class="panel-actions">
+            <button type="button" class="btn btn-primary waves-effect waves-classic icon md-plus" data-toggle="panel-collapse" aria-expanded="true" aria-hidden="true"> Add</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <ng-select [items]="users" [multiple]="true" [closeOnSelect]='true' [clearable]='false' bindLabel="name" bindValue="id" name="selectedMembers" placeholder="Select Members" [(ngModel)]="selectedMembers" (add)="addMembers($event)" (remove)="removeMembers($event.value)"></ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-bordered" *ngFor="let user of teamusers" style="margin-bottom: 10px;">
+        <div class="panel-body">
+          <div class="form-group">
+            <span class="team_user">{{user.member_name}} <a class="remMemBtn mr-10 text-right" (click)="remFromTeam(user.user_id)" title="Remove Member"><i class="icon md-delete"></i></a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

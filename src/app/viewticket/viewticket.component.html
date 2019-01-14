@@ -1,0 +1,114 @@
+<app-user-header></app-user-header>
+<div class="container-fluid height">
+  <div class="row justify-content-md-center">
+    <div class="col-lg-10 col-md-10 col-sm-12">
+			<div *ngFor="let item of ticketInfo">
+				<div class="panel mt-20 mb-15">
+					<div class="panel-heading ">
+						<div class="row  p-10">
+							<div class="col-md-6">
+								<p> ID : # <b>{{ item.id }}</b> &nbsp; <span class="badge badge-warning p-5"><b> {{ item.status }} &nbsp; </b></span> </p>
+								<div class="fs-13"> Category : {{ item.topic }} &nbsp; </div>
+								<div><b>Subject : {{item.subject}}</b></div>
+								<div><small>Last Updated: {{ item.updated_date |  timeDiff }}</small></div>
+							</div>
+							<div class="col-md-6 text-right">
+								<div>Agent : <b>{{item.assignee_name}}</b></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div *ngIf="ticketReplys" class="panel replypanel mb-15">
+				<div *ngFor="let item of ticketReplys">
+					<div *ngIf="item.reply_id" class="bb">
+						<div class="panel-body row p-10">
+							<div class="col-lg-1 col-md-2 col-sm-2">
+								<span class="avatar text-center">
+									<img  class="main-avatar" src="{{item.profile_pic | dynamicImgSrc}}" alt="...">								
+									<h6 class="m-1 mob-in">{{item.user_name  | truncate : 6 }}</h6>
+								</span>
+							</div>
+							<div class="col-lg-9 col-md-8 col-sm-7 pt-1 pl-0">
+								<span class="fs-15"><b>{{ item.reply }}</b></span>
+								<div><small>{{ item.create_date | timeDiff }}</small></div>
+							</div>
+							<div class="col-lg-2 col-md-2 col-sm-3 text-right mobile-left">
+								<span class="ratings">
+								<div *ngIf ="loggedIn && item.type_id != 4 && type_id == 4" class="empty-stars" (click)="rating($event, item.id, item.rating)" style="cursor: pointer;"></div>
+									<div *ngIf="loggedIn && item.type_id != 4 && type_id == 4">
+										<div class="full-stars" (click)="rating($event, item.id, item.rating)" [ngStyle]="{'width': calcWidth(item.rating)}" style="cursor: pointer;"></div>
+									</div>
+									<div *ngIf ="!loggedIn && item.type_id != 4" class="empty-stars"></div>
+									<div *ngIf ="!loggedIn && item.type_id != 4" class="full-stars" [ngStyle]="{'width': calcWidth(item.rating)}"></div>
+								</span>
+							</div>
+							<!--
+							<div class="col-md-4 text-right">
+								<p>By: {{ item.user_name }}</p>
+								<span class="fs-13"> created : {{ item.create_date | timeDiff }} </span>
+							</div>
+							-->
+						</div>
+						<div class="panel-footer text-muted">
+							<div class="row">
+								<div class="col-md-12 p-0 text-right cstRating">
+									<!--
+									<span *ngIf="item.rating == 0 && type_id == 4">Give your rating to this solution : <input type="text" class="col-1" name="rating" [(ngModel)]="rating" minlength="0" maxlength="1" /> / <b>5</b></span>
+									-->
+								</div> 
+								<!--
+								<div class="col-md-6 p-0">
+									<div class="ratings">
+										<div class="empty-stars"></div>
+										<div class="full-stars" [ngStyle]="{'width':calcWidth(item.rating)}"></div>
+									</div>
+								</div>
+								<span class="col-md-6 p-0 text-right cstRating"> Was this solution helpful ? <a  href="javascript:;" (click)="rating('yes',item.id)"> Yes </a> / <a href="javascript:;" (click)="rating('no',item.id)"> No </a></span> 
+								-->
+							</div>
+						</div>
+				</div>
+			</div>
+        
+    <!--    <div class="panel panel-bordered">
+          <div class="panel-heading text-center">
+            <h3 class="panel-title">Add Reply</h3>
+          </div>
+          <div class="panel-body">
+            <textarea class="form-control panel-control" placeholder="This is a form textarea..." rows="5"></textarea>
+            <button type="button" class="btn btn-primary mt-15 waves-effect waves-classic">Submit</button>
+          </div>
+        </div>
+      </div> -->
+		</div>
+		
+		 
+		<div class="tab-content">
+			<div class="tab-pane active" id="reply" role="tabpanel">
+				<div class="masonry-item">
+					<div class="panel input-panel">
+						<div class="form-group">
+							<textarea class="form-control" rows="4" [(ngModel)]="reply" cols="40" placeholder="Add Reply Here ..."></textarea>
+							<div class="form-footer">
+								<div class="input-panle-btn">
+									<div class="file-upload">
+										<label for="upload" class="file-upload__label"> <i class="icon md-image"> Upload Image </i> 
+											<span style="color:#827e7e" *ngIf="filenm!=''"> &nbsp; {{filenm |  truncate : 35}}</span> 
+										</label>
+										<input id="upload" #replyPic (change)="filename($event)" class="file-upload__input" type="file" name="file-upload">
+									</div>
+								</div>
+								<button class="btn submit font-weight-500" [disabled]="!reply" (click)="postReply(reply,user_id); reply=''">submit</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+</div>
+</div>
+<app-user-footer></app-user-footer>
+
+	

@@ -1,0 +1,10 @@
+.lh-5{line-height:0.75rem}
+thead { background-color: #3b3b4380; }
+tbody { height: 450px; overflow: auto; }
+.table thead th { color: #fff; }
+.avatar-id{    border: 1px solid #fff; border-radius: 50%;height: 36px;width: 36px;padding: 7px;background: #eee;color: #291717; font-weight: 400;font-size: 13px;}
+.ticketspanel .panel { margin-bottom: 15px; }
+.ticketspanel .panel-body { padding: 15px 30px; }
+
+
+

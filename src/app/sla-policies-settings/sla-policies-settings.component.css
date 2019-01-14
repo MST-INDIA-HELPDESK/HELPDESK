@@ -1,0 +1,4 @@
+.panel-heading + .panel-body { padding: 10px 30px; }
+.add_new { float: right; }
+input#grace_period { display: inline-block; margin-right: 10px; }
+.delete_SLAPolicy { display: inline-block; padding: 10px 0; }

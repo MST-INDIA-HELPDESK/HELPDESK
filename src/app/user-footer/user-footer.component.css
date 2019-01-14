@@ -1,0 +1,5 @@
+.headertitle {background-color: #3b3b43;color:#ffffff;}
+.pdTpBt-20{padding-top:20px;padding-bottom:20px;}
+.pdLtRt-10{padding-left:10px;padding-right:10px; bottom:0;}
+@media screen and (max-width:767px){.copyright, .pwrdby{text-align:center !important;float:none !important;}}
+@media screen and (max-width:375px){.copyright, .pwrdby{text-align:center !important;float:none !important; font-size:12px;}}

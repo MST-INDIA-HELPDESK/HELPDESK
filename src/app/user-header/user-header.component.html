@@ -1,0 +1,56 @@
+<div class="headertitle">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-4 col-sm-6 col-4 text-right p-3 pl-10">
+				<div class="text-left cstpd ">
+					<a [routerLink]="['/home']" href="javascript:;">
+					<span class="helpdesktxt">Helpdesk</span>
+					</a>
+				</div>
+			</div>
+			<div class="col-md-8 col-sm-6 col-8 mt-5 mobile tab text-right p-cust">
+		        <div class="row btn-group">
+    				<a *ngIf="loggedIn" id="myLinks" class="btnuser mr-5" [routerLink]="['/topics']" >
+    				    <b> Create New Ticket </b>
+				    </a>
+					<a class="btnuser mr-5" id="myLinks" [routerLink]="['/mytickets']">
+					    <b> My Tickets </b>
+				    </a>
+					<a *ngIf="!loggedIn" id="myLinks" class="btnuser mr-5" [routerLink]="['/login']">
+					    <b>Sign In</b>
+				    </a>
+					<span *ngIf="loggedIn" class="avatar avatar-online m-auto">
+			   			<span *ngIf="show">
+			   		    	<img class="main-avatar test" id="profile_img" src="{{ profile_pic | dynamicImgSrc }}">
+			   		    </span>
+			   		</span>
+   					<button *ngIf="loggedIn" type="button" class="btn btnuser dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    <span><b>{{user_name | titlecase}}</b></span>
+					</button>
+					<div *ngIf="loggedIn" class="dropdown-menu">
+					    <a class="dropdown-item" (click)="logout()">Log out</a>
+					</div>
+					<a class="icon btn-group">
+		    	        <i (click)="open=!open" class="fa fa-bars"></i>
+			        </a>
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>
+<div *ngIf="open" class="row animation-fade">
+	<div class="list-group bg-inherit cst-list mb-0">
+    	<a *ngIf="!loggedIn" class="list-group-item"  [routerLink]="['/login']" href="javascript:void(0)">
+		    <b> Login </b> / <b>Sign Up</b>
+	    </a>
+		<a *ngIf="loggedIn" class="list-group-item" [routerLink]="['/topics']"  href="javascript:void(0)">
+    		<b> Create New Ticket </b>     
+    	</a>
+    	<a class="list-group-item" [routerLink]="['/mytickets']"  href="javascript:void(0)">
+    		<b> My Tickets </b>     
+    	</a>
+    	<a *ngIf="loggedIn" class="list-group-item" (click)="logout()"  href="javascript:void(0)">
+    		<b>	Log out  </b>   
+    	</a>
+	</div>
+</div>

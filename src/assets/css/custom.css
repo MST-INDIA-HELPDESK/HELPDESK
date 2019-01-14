@@ -1,0 +1,39 @@
+body {padding-top: 0px !important;}
+.container { width: auto; }
+img { max-width: 100%; }
+.main-avatar{width:30px !important;; height:30px !important;}
+.main-avatar2{width:50px !important;; height:50px !important;}
+.height{ position: relative; min-height: 100%; background-color:#f1f4f5;}
+.pre-wrap{white-space: pre-wrap;}
+.fs-20{font-size:20px;}
+.panel{box-shadow:none;}
+.thead{background-color:#eeeeee;}
+.showDiv{display:table-column;;}
+.pointer{cursor:pointer;}
+.commentBox{border: 1px solid #ccc;margin-top: 10px;}
+.md-notifications:before {font-size: 18px;}
+input[type=text],input[type=email],input[type=password] {height:2.8rem;}
+
+#exampleReport,#subArticle table tr:last-child td{ border-bottom: none !important;}
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background: rgba(0,0,0,0.1);
+  border: 1px solid #ccc;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+   border: 1px solid #aaa;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+.opt_full { opacity: 0 !important; }

@@ -1,0 +1,82 @@
+ <div class="container-fluid p-20">
+   <div class="row">
+     <div class="col-12 mt-20">
+      <div class="panel ml-10 mr-10 mb-20" id="exampleReport">
+        <div class="panel-body p-10">
+          <div class="panel-heading">
+            <h3 class="pt-5 mb-0 pull-left">Teams</h3>
+            <div class="text-right">
+              <button type="button" class="btn btn-primary icon md-plus"  data-original-title="Add Teams" data-container="body" data-target="#newteam" data-toggle="modal"> Add Teams</button>              
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="example example-well mt-0 p-10 mb-0 noborder"  *ngFor="let team of teams">
+        <div id="examplePanel" class="panel mb-0">
+          <div class="panel-heading"></div>
+          <div class="panel-body row">
+            <div class="col-lg-11 col-md-10 col-sm-10 col-9 p-5">
+              <a class="viewTeamBtn" title="View Team" (click)="editTeam(team.id)"><strong>{{team.name}}</strong></a>
+            </div>
+            <div class="col-lg-1 col-md-2 col-sm-2 col-3">
+              <a class="delTeamBtn" (click)="delTeam(team.id)" data-toggle="tooltip" data-original-title="Delete Team" data-container="body"><i class="icon md-delete"></i></a>
+            </div>  
+          </div>
+        </div>
+      </div>
+          <!--
+          <div class="example-wrap">
+            <div class="example">
+              <table class="table" data-role="content">                 
+                <tbody>
+                  <tr *ngFor="let team of teams">
+                    <td style="width: 80%;"><a class="viewTeamBtn" title="View Team" (click)="editTeam(team.id)">{{team.name}}</a></td>
+                    <td class="text-right" style="width: 20%;">
+                        <a class="delTeamBtn" (click)="delTeam(team.id)" data-toggle="tooltip" data-original-title="Delete Team" data-container="body"><i class="icon md-delete"></i></a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          -->
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div #AddTeam class="modal fade modal-fade-in-scale-up" id="newteam" aria-hidden="true" aria-labelledby="exampleModalTitle" role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-simple">
+    <form #addTeam="ngForm" (ngSubmit)="createTeam(addTeam.value)">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+          <h4 class="modal-title">New Team</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Team Name: </label>
+            <input type="text" class="form-control" name="teamname" [(ngModel)]="teamname" placeholder="Team Name" required />
+          </div>
+          <div class="form-group">
+            <label>Team Description: </label>
+            <textarea class="form-control" name="teamdesc" [(ngModel)]="teamdesc" placeholder="Team Description" required></textarea>
+          </div>
+          <div class="form-group">
+            <label>Team Members ({{membercounts}}): </label>
+            <ng-select [multiple]="true" [closeOnSelect]='true' [clearable]='false' name="selectedMembers" placeholder="Select Members" [(ngModel)]="selectedMembers" (change)="getMember(selectedMembers)" >
+              <ng-option *ngFor="let item of members" [value]="item.id">{{item.name}}</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-pure" (click)="reset()" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- End Modal -->

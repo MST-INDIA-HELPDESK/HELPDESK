@@ -1,0 +1,11 @@
+.gotoSignIn { display: inline-block; cursor: pointer; }
+.page-register-v2 .page-register-main { padding: 0 60px 180px; }
+@media(max-width:767px){
+    .page-register-v2 .page-register-main{background:transparent;}
+    .page-register-v2 .page-brand-info .brand-text{display:none !important;}
+    .page-copyright{color:#ffffff;}
+    .page{text-align:center; color:white;}
+     h3 ,p ,label ,a{color:#ffffff; font-weight: 500;}
+    .page-register-v2 .page-register-main .brand-text{color:white;}
+    
+}

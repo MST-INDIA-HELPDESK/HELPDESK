@@ -1,0 +1,13 @@
+
+.settings-box i { font-size: 30px; }
+.settings-box .settings-box-title { vertical-align: top; line-height: 30px; color: #000; }
+.settings-box a:hover, .general-settings-outer a { text-decoration: none; }
+.support-channel-outer, /*.general-settings-outer,*/ .account-settings-outer { border: 1px solid #fff; }
+.support-channel-outer:hover { border: 1px solid #02b875; background: #f2fffa; }
+.support-channel-outer .settings-box i { color: #02b875; }
+/* .general-settings-outer:hover { border: 1px solid #3f51b5; background: #fcf5ff; } */
+.general-settings-outer .settings-box i { color: #3f51b5; }
+.account-settings-outer:hover { border: 1px solid #eb9660; background: #fff6f0; }
+.account-settings-outer .settings-box i { color: #eb9660; }
+.disabled a { cursor: not-allowed; pointer-events: none; }
+.full-height { height: calc(100% - 100px);}

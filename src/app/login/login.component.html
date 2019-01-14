@@ -1,0 +1,57 @@
+<!-- Page -->
+<div toastContainer></div>
+<div class="page-login-v2 layout-full page-dark" style="background-position: 100%;">
+    <div class="page">
+        <div class="page-content">
+            <div class="page-brand-info">
+                <div class="brand">
+                    <h1 class="brand-text font-size-40">Helpdesk</h1>
+                </div>
+            </div>
+			<div class="page-login-main">
+                <div class="brand hidden-md-up text-center mb-10">
+                    <h3 class="brand-text font-size-40">Helpdesk</h3>
+                </div>
+                <h3 class="font-size-24">Sign In</h3>
+             	<form #userLogin="ngForm" (ngSubmit)="signIn(userLogin.value)" autocomplete="off">
+                    <div class="form-group">
+                        <input type="email" class="form-control empty" placeholder="Email" id="inputEmail" name="email" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [(ngModel)]="user.email"  #email="ngModel" required>
+                    </div>
+                    <div *ngIf="email.invalid && ( email.touched)">
+                        <div *ngIf="email.errors.required && email.touched" class="invalid text-right">* Email is required</div>
+                        <div *ngIf="email.errors?.pattern && email.touched" class="invalid text-right">* Email must be a valid email address</div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control empty" placeholder="Password" id="inputPassword" name="password" [(ngModel)] ="user.password"  #password="ngModel" required>
+                    </div>
+                    <div *ngIf="password.invalid && ( password.touched)">
+                        <div *ngIf="password.errors.required && password.touched" class="invalid text-right">* Password is required</div>
+                    </div>
+                    <div class="form-group clearfix">
+                        <div class="checkbox-custom checkbox-inline checkbox-primary float-left">
+                            <input type="checkbox" id="remember" name="checkbox" (change)="remember(user)">
+                            <label for="inputCheckbox">Remember me</label>
+                        </div>
+                        <a class="float-right" [routerLink]="['/forgetpassword']">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" [disabled]="!user.password || !user.email">Sign in</button>
+                </form>
+
+                <p>No account? <a class="gotoSignUp" [routerLink]="['/register']">Sign Up</a></p>
+
+                <footer class="page-copyright">
+                    <p>WEBSITE BY Mascot Software Technologies</p>
+                    <p>© 2018. All RIGHT RESERVED.</p>
+                    <div class="social">
+                        <a class="btn btn-icon btn-round social-facebook mx-5" (click)="socialSignIn('facebook')">
+                            <i class="fa fa-facebook" aria-hidden="true"></i>
+                        </a>
+                        <a class="btn btn-icon btn-round social-google-plus mx-5" (click)="socialSignIn('google')">
+                            <i class="fa fa-google-plus" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>

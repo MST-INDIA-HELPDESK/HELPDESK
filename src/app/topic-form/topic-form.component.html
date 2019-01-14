@@ -1,0 +1,51 @@
+<app-user-header></app-user-header>
+<div class="container-fluid height">
+	<div class="row justify-content-center" *ngFor="let user of user">
+		<div class="col-lg-6 col-md-4 col-sm-8 mt-5 mb-5 p-20 full-border">
+			<div class="form-group text-center">Topic : <b>{{name}}</b></div>
+			<form #genticket="ngForm"  (ngSubmit)="newTicket(genticket.value)">
+				<div class="form-group">
+					<input type="text" class="form-control" id="inputfn" name="firstnm" [readonly]="loggedIn" placeholder="First Name" [(ngModel)]="user.first_name" required>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" id="inputln" name="lastnm" [readonly]="loggedIn" placeholder="Last Name" [(ngModel)]="user.last_name" required>
+				</div>
+				<div class="form-group">
+					<input #emailId="ngModel" type="text" class="form-control" id="uticketemail" [readonly]="loggedIn" name="uticketemail" placeholder=" Email Id" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" [(ngModel)]="user.email" required>
+				</div>
+				<div *ngIf="emailId.invalid && (emailId.touched)">
+					<div *ngIf="emailId.errors.required && emailId.touched" class="invalid text-right">* Email is required</div>
+					<div *ngIf="emailId.errors?.pattern && emailId.touched" class="invalid text-right">* Email must be a valid email address</div>
+				</div>
+				<div class="form-group">
+					<input #subject type="text" class="form-control"  id="inputSub" name="usersubject" placeholder="Subject" [(ngModel)]="user.subject" required>
+				</div>
+				<div class="form-group">
+					<textarea class="form-control" id="inputMsg" placeholder="Message" name="usermessage" rows="3" [(ngModel)]="user.message" required></textarea>
+				</div>
+				<div class="form-group">
+					<input type="file" #fileUpload class="form-control-file" id="attachFile" name="image" [(ngModel)]="user.file">
+				</div>
+				<button type="submit" id="subButton" class="btn btn-primary" data-toggle="modal">Submit Ticket</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" #myModel id="ticketModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content cst-modal panel panel-success panel-line">
+			<div class="modal-header panel-heading">
+				<h3 class="panel-title">Ticket Generated Successfully</h3>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<div class="modal-body panel-body">
+				Your Ticket Id: <b>#{{ticketId}}</b>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary" (click)="viewTicket()">View Ticket</button>
+			</div>
+		</div>
+	</div>
+</div>
+<app-user-footer></app-user-footer>

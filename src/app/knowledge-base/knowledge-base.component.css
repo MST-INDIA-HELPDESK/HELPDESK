@@ -1,0 +1,52 @@
+.headerborder{height:50px;width:100%;text-align:center;padding:10px;}
+.divsaperateborder{border:2px solid #d6d9dc;border-radius:5px;margin-top:10px;}
+.helpdesktxt {vertical-align: middle;line-height: 48px;}
+.pdTpBt-3{padding-top:3px;padding-bottom:3px;}
+.pd-20{padding:20px}
+.fa-search{font-size:22px;}
+.fa-ticket{font-size:40px;}
+.pd-36{padding-top:36px;}
+.pdTpBt-20{padding-top:20px;padding-bottom:20px;}
+.pdTpBt-10{padding-top:10px;padding-bottom:10px;}
+.pdLtRt-10{padding-left:10px;padding-right:10px;}
+.usrprfimg {width: 30px;}
+.btnuser{background-color:#3b3b43;color:#ffffff;padding: 0px;vertical-align: middle;line-height: 54px;}
+.btnuser:focus{ box-shadow: none; }
+.headertitle {background-color: #3b3b43;color:#ffffff;}
+.mgb-10 {margin-bottom: 10px;}
+.btn-full{width:100%;}
+.btn-clr {background-color: #009688;border: 1px solid #009688;}
+.checked {color: orange;}
+.searchRes{margin-top: 15px; border: 1px solid #f3e9e9;padding:15px 25px; background: #f5f5060f;}
+
+/***** Star Rating ****/
+.ratings {
+  position: relative;
+  vertical-align: middle;
+  display: inline-block;
+  color: #b1b1b1;
+  overflow: hidden;
+}
+
+.full-stars{
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #e2e20a;
+}
+
+.empty-stars:before,
+.full-stars:before {
+  content: "\2605\2605\2605\2605\2605";
+  font-size: 14pt;
+}
+
+.empty-stars:before {
+  -webkit-text-stroke: 1px #848484;
+}
+
+.full-stars:before {
+  -webkit-text-stroke: 1px orange;
+}

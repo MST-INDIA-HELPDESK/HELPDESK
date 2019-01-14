@@ -1,0 +1,36 @@
+.headertitle {background-color: #3b3b43;color:#ffffff;}
+.pdLtRt-10{padding-left:10px;padding-right:10px;}
+.helpdesktxt {vertical-align: middle;padding:5px 0; font-size:24px; font-weight:500; color:#ffffff;}
+.btnuser{background-color:#3b3b43;color:#ffffff;padding: 0px 10px;margin: 15px 0;}
+.btnuser:focus{ box-shadow: none; }
+.usrprfimg {width: 30px;margin-right: 6px;}
+.pull-right {float: right;}
+a:hover{text-decoration:none}
+.btn-group .dropdown-menu{min-width: 80px;}
+.mobile{display:none;}
+.cstpd{padding:15px 5px;}
+.p-cust{padding:0 15px}
+.tb{top:0px;}
+.avatar{width:30px;}
+.tab { display: block;}
+.cst-list{width: 100%;text-align: right;margin-right: 15px;}
+.lh-30{line-height:30px}
+.mobile {overflow: visible;position: relative;}
+.mobile #myLinks { display: block;}
+.mobile a { color: white;text-decoration: none;font-size: 17px;display: block;}
+.mobile .dropdown-item{font-size: 14px; padding:0px; color:#000;}
+.fa-navicon:before, .fa-reorder:before, .fa-bars:before {font-size: 24px;}
+.mobile a.icon {background: inherit;padding:15px;display: none;right: 5px;top: 0;}
+.dropdown-menu{color:#000; text-align:center;}
+@media only screen and (max-width: 767px) {
+    .tab { display: block;}
+    .mobile #myLinks { display: none;}
+    .mobile  a.icon { display: block;}
+    .btnuser{margin: 15px 3px;}
+    .mobilenav{display:block;}
+    
+}
+@media (max-width:320px){
+    .p-cust{padding:0 10px}
+	.helpdesktxt{font-size:16px; font-weight:500;}
+}

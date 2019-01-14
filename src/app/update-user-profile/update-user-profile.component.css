@@ -1,0 +1,24 @@
+.avatar-upload { position: relative; max-width: 130px; margin: 0 auto 20px auto; }
+.avatar-edit { position: absolute; right: 12px; z-index: 1; top: 0px; }
+.avatar-upload input { display: none; }
+.avatar-upload input + label { display: inline-block; width: 34px; height: 34px; border-radius: 100%; background: #FFFFFF; border: 1px solid transparent; box-shadow: 0px 0px 0px 4px #5c6bc014; cursor: pointer;  transition: all .2s ease-in-out;  z-index: 1; }
+.avatar-upload input + label i { position: absolute; top: 10px; left: 0; right: 0; text-align: center; margin: auto; }        
+.avatar-preview { width: 100%; height: 130px; position: relative; border-radius: 100%; border: 5px solid #F8F8F8; box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1); }
+.avatar-preview > div { width: 100%; height: 100%; border-radius: 100%; background-size: cover; background-repeat: no-repeat; background-position: center; }
+#imagePreview img{ width: 100%; height: 100%; border-radius: 100%; }
+.noshadow{box-shadow:unset !important}
+.img-caption { position: absolute; left: 0; padding: 10px; width: 100%; top: auto; bottom: 0; opacity: 0; transform: translateY(100%);    transition: transform .4s,opacity .1s .3s; }
+.avatar-upload:hover{ cursor: pointer; }
+.avatar-upload:hover .img-caption { opacity: 1; transform: translateY(0); transition: transform .4s,opacity .1s; }
+.avatar-edit input + label:hover { background: #f1f1f1; border-color: #d6d6d6; }
+
+@media screen and (max-width:767px){
+	.avatar-upload {margin: 0 auto 20px auto;}
+	.form-group.form-material { text-align: center; }
+	.profile_tabs{display:none;}
+	.res_btn { position: relative; right: 0; top: -15px; }
+}
+
+@media screen and (min-width:768px){
+	.res_btn {display:none;}
+}

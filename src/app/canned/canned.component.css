@@ -1,0 +1,6 @@
+.custom-control-label::after {background-size: 44% 44%;}
+.scroll	{min-height:250px;}
+.wd-20{width:30px;}
+.bl{border-left: 1px solid;} .plr-5{padding:0 5px;}
+.tag{color: #af6767; text-decoration: underline;}
+.ng-select .ng-select-container .ng-value-container .ng-placeholder {margin: -3px;font-weight: 500}

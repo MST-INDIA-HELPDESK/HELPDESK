@@ -1,0 +1,268 @@
+<div class="container-fluid">
+	<div class="row justify-content-md-center">
+		<div class="col-md-12 mt-4">
+			<div class="panel">
+				<div class="panel-heading">
+					<h4 class="panel-title">General Settings</h4>
+				</div>
+			</div><!-- panel -->
+			<div class="row">
+				<div *ngIf="typeid" class="col-md-4 general-settings-outer text-center">
+					<div class="card">
+						<a [routerLink]="['../generalsettings']">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-headset-mic mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">General</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div *ngIf="!typeid" class="col-md-4 general-settings-outer text-center" [ngClass]="{ 'disabled': !typeid }">
+					<div class="card">
+						<a [routerLink]="">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-headset-mic mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">General</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div *ngIf="typeid" class="col-md-4 general-settings-outer text-center">
+					<div class="card">
+						<a [routerLink]="['../emailsettings']">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-headset-mic mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">Email</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div *ngIf="!typeid" class="col-md-4 general-settings-outer text-center" [ngClass]="{ 'disabled': !typeid }">
+					<div class="card">
+						<a [routerLink]="">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-headset-mic mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">Email</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div *ngIf="typeid" class="col-md-4 general-settings-outer text-center">
+					<div class="card">
+						<a [routerLink]="['../tagsettings']">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-tag mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">Tags</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div *ngIf="!typeid" class="col-md-4 general-settings-outer text-center" [ngClass]="{ 'disabled': !typeid }">
+					<div class="card">
+						<a [routerLink]="">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-tag mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">Tags</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4 general-settings-outer text-center">
+					<div class="card">
+						<a [routerLink]="['../helpdesksettings']">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-headset-mic mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">Customer Fields</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4 general-settings-outer text-center">
+					<div class="card">
+						<a [routerLink]="['../helpdesksettings']">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-phone-in-talk mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">Agents</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4 general-settings-outer text-center">
+					<div class="card">
+						<a [routerLink]="['../helpdesksettings']">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-headset-mic mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">Roles</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4 general-settings-outer text-center">
+					<div class="card">
+						<a [routerLink]="['../helpdesksettings']">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-lock mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">Security</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div *ngIf="typeid" class="col-md-4 general-settings-outer text-center">
+					<div class="card">
+						<a [routerLink]="['../sla-policies-settings']">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-time mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">SLA Policies</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div *ngIf="!typeid" class="col-md-4 general-settings-outer text-center" [ngClass]="{ 'disabled': !typeid }">
+					<div class="card">
+						<a [routerLink]="">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-time mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">SLA Policies</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4 general-settings-outer text-center">
+					<div class="card">
+						<a [routerLink]="['../helpdesksettings']">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-headset-mic mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">Business Hours</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-4 general-settings-outer text-center">
+					<div class="card">
+						<a [routerLink]="['../helpdesksettings']">
+							<div class="card-block">
+								<div class="pt-2 pb-2 settings-box">
+									<i class="icon md-headset-mic mr-4" aria-hidden="true"></i>
+									<span class="settings-box-title">Multiple Products</span>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div><!-- pannel-body -->
+			
+			<!--<div class="panel">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					Support Channels
+					<hr>
+				</h4>
+			</div>
+			<div class="panel-body row">
+				<div class="col-md-4 support-channel-outer">
+					<div class="pt-2 pb-2 settings-box">
+						<i class="icon md-email" aria-hidden="true"></i>
+						<a href="#" class="ml-4">Email</a>
+					</div>
+				</div>	
+				<div class="col-md-4 support-channel-outer">
+					<div class="pt-2 pb-2 settings-box">
+						<a href="#" class="ml-4">Portals</a>
+					</div>
+				</div>
+				<div class="col-md-4 support-channel-outer">
+					<div class="pt-2 pb-2 settings-box">
+						<a href="#" class="ml-4">Fresh Chat</a>
+					</div>
+				</div>
+				<div class="col-md-4 support-channel-outer">
+					<div class="pt-2 pb-2 settings-box">
+						<i class="icon md-phone-in-talk" aria-hidden="true"></i>
+						<a href="#" class="ml-4">Phone</a>
+					</div>
+				</div>	
+				<div class="col-md-4 support-channel-outer">
+					<div class="pt-2 pb-2 settings-box">
+						<i class="icon md-twitter" aria-hidden="true"></i>
+						<a href="#" class="ml-4">Twitter</a>
+					</div>
+				</div>
+				<div class="col-md-4 support-channel-outer">
+					<div class="pt-2 pb-2 settings-box">
+						<i class="icon md-facebook" aria-hidden="true"></i>
+						<a href="#" class="ml-4">Facebook</a>
+					</div>
+				</div>
+				<div class="col-md-4 support-channel-outer">
+					<div class="pt-2 pb-2 settings-box">
+						<a href="#" class="ml-4">Feedback Widget</a>
+					</div>
+				</div>
+				<div class="col-md-4 support-channel-outer">
+					<div class="pt-2 pb-2 settings-box">
+						<a href="#" class="ml-4">Bot</a>
+					</div>
+				</div>
+			</div> pannel-body 
+			</div>pannel -->
+			<!--<div class="panel">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					General Settings
+					<hr>
+				</h4>
+			</div>
+			<div class="panel-body row">
+				<div class="col-md-4 account-settings-outer">
+					<div class="pt-2 pb-2 settings-box">
+						<i class="icon md-account" aria-hidden="true"></i>
+						<a href="#" class="ml-4">Account</a>
+					</div>
+				</div>	
+				<div class="col-md-4 account-settings-outer">
+					<div class="pt-2 pb-2 settings-box">
+						<a href="#" class="ml-4">Plans & Billing</a>
+					</div>
+				</div>
+				<div class="col-md-4 account-settings-outer">
+					<div class="pt-2 pb-2 settings-box">
+						<a href="#" class="ml-4">Import data from Zendesk</a>
+					</div>
+				</div>
+				<div class="col-md-4 account-settings-outer">
+					<div class="pt-2 pb-2 settings-box">
+						
+						<a href="#" class="ml-4">Day Pass</a>
+					</div>
+				</div>
+			</div> pannel-body 
+			</div> panel -->
+		</div><!-- col-md-9 -->
+	</div><!-- row -->
+</div><!-- container-fluid-->

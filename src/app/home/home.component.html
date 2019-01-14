@@ -1,0 +1,64 @@
+<app-user-header></app-user-header>
+	<div class="container height">
+		<div class="row justify-content-center">
+			<div class="col-md-12">
+				<div class="pdTp-30 pdBt-20">
+					<form>
+						<div class="row justify-content-center">
+							<div class="col-md-8 col-sm-8 col-10">
+								<div class="input-group input-group-lg mb-3 mt-4">
+								  <input type="text" class="form-control" [(ngModel)]="searchText" (ngModelChange)="filterSearch()" name="searchText" placeholder="Search">
+								</div>
+							</div>
+						</div>	
+					</form>
+					
+					<ul *ngIf="filterData">
+						<div class="searchRes" >
+							<p> <b>Suggested knowledgebase articles : </b></p>
+							<i>{{emptyMessage}} </i>
+							<li *ngFor="let c of filterData">
+							<a [routerLink]="['/knowledgebase', c.id,c.article,c.parent_category,'false' ]">{{c.article}}</a>
+							</li>
+						</div>
+					</ul>
+				</div>	
+			</div>
+		</div>
+	
+		<div class="row justify-content-center">
+			<div class="col-lg-2 col-md-4 text-center" *ngFor="let i of category">
+				<div class="card"  [routerLink]="['/article-by-id',i.id,i.category_title,'false']">
+					<div class="card-block">
+						<a href="javascript:;"><i class="icon md-folder" aria-hidden="true"></i> <span class="pl-2"><b>{{i.category_title}}</b></span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row p-20">
+			<div class="col-md-6 card">
+				<h3 class="text-left">Top knowledgebase articles:</h3>
+				<ul class="list-group list-group-flush text-left">
+					<ng-container *ngFor="let art of articles;let i=index">	
+				  	<li  *ngIf="i<5" class="list-group-item" ><a [routerLink]="['/knowledgebase', art.id,art.article,art.parent_category,'false']">{{art.article}}</a> <span class="pull-right">{{art.views}}</span></li>
+				  </ng-container>
+				</ul>
+			</div>
+			<div class="col-md-6 card">
+				<h3 class="text-left">Latest knowledgebase articles:</h3>
+				<ul class="list-group list-group-flush text-left">
+				  <li *ngFor="let artDesc of articlesDesc" class="list-group-item" ><a [routerLink]="['/knowledgebase', artDesc.id,artDesc.article,artDesc.parent_category,'false']">{{artDesc.article}}</a> <span class="pull-right">{{artDesc.k_date}}</span></li>
+				</ul>			
+			</div>
+			<div class="col-md-12 card">
+				<h3 data-toggle="collapse" data-target="#entireKnowl" class="vwentcollp text-left">View entire knowledgebase</h3>
+		  		<div id="entireKnowl" class="collapse divsaperateborder verticalscrollbar">
+				<ul class="list-group list-group-flush text-left h-300">
+					  <li *ngFor="let art of articles" class="list-group-item"><a [routerLink]="['/knowledgebase', art.id,art.article,art.parent_category,'false' ]">{{art.article}}</a> <span class="pull-right">{{art.views}}</span></li>
+					</ul>
+				</div>		
+			</div>
+		</div>
+	</div>
+
+<app-user-footer></app-user-footer>

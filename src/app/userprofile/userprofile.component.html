@@ -1,0 +1,197 @@
+    <!-- Page -->
+    <app-breadcrumb></app-breadcrumb>
+    <div class="page-profile">
+      <div class="page-content container-fluid p-15">
+        <div class="row profcontent">
+          <div class="col-lg-3">
+            <!-- Page Widget -->
+            <div *ngFor="let u of UserData" class="card card-shadow text-center">
+              <div class="card-block p-10">
+               <a class="avatar avatar-lg" href="javascript:void(0)">
+                 <img src="{{u.profile_pic | dynamicImgSrc }}" alt="..."> 
+                   <!--<img src="assets/images/profile-img.jpg" alt="...">-->
+                </a>
+                <h4 class="profile-user">{{u.first_name}} {{u.last_name}}</h4>
+                <p class="profile-job">{{u.type}}</p>
+                <div class="form-group form-material"><label class="form-control-label">{{u.company}}</label></div>
+                <div class="form-group form-material"><label class="form-control-label">{{u.email}}</label></div>
+                <div class="form-group form-material"><label class="form-control-label">{{u.phone}}</label></div>
+              </div>
+              <div class="card-footer">
+                <div class="row no-space">
+                  <div class="col-4">
+                    <strong class="profile-stat-count"><b>{{opencnt}}</b></strong>
+                    <span>Open</span>
+                  </div>
+                  <div class="col-4">
+                    <strong class="profile-stat-count"><b>{{closedcnt}}</b></strong>
+                    <span>Closed</span>
+                  </div>
+                  <div class="col-4">
+                    <strong class="profile-stat-count"><b>{{resolvedcnt}}</b></strong>
+                    <span>Resolved</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Page Widget -->
+          </div>
+         <div class="col-lg-9">
+            <!-- Panel -->
+            <div class="panel panelMargB">
+              <div class="panel-body mytickets">
+                  <span class="ticketTab">My Tickets</span>
+	              <span class="filterRight">
+	              	<a class="filterMenu exampleFillIn" data-target="#exampleFillIn" data-toggle="modal" style="cursor: pointer;"><i class="icon md-filter-list"></i></a>
+	               	<a class="filterMenu toggleSidebar" (click)="_toggleSidebar()" style="cursor: pointer;"><i class="icon md-filter-list"></i></a>
+	              </span> 
+	           </div>    
+	         </div>  
+                <div class="tab-content">
+                    <div  class="row">
+						<div class="ticketList" [ngClass]="{'col-xl-12 col-lg-12  col-md-12 col-sm-12':!_opened,'col-xl-8 col-lg-8  col-md-8 col-sm-8':_opened}">
+		                  <div class="tab-pane active animation-slide-left" id="activities" role="tabpanel">
+		                  	<h6 *ngIf="tickets=='' " class="noTickets card p-10 text-center">No tickets found for you .... </h6>
+		                    <div class="example example-well mt-0 p-10 mb-0 noborder"  *ngFor="let i of tickets | paginate: { itemsPerPage: 6, currentPage: p }">
+								<div id="examplePanel" class="panel mb-0">
+									<div class="panel-heading">
+										<div class="panel-title">
+											<div class="checkbox-custom checkbox-default m-0">
+												<input type="checkbox" [(ngModel)]="i.selected" (change)="checkIfAllSelected($event,i.id)" />
+												<label></label>
+											</div>
+										</div>
+										<div class="panel-actions row">
+											<ng-select [items]="priorities" class="plr-5"  [clearable]="false"  bindLabel="priority"  bindValue="priority" (change)="update(i.priority,'priority',i.id,i.user_id)" [(ngModel)]="i.priority"></ng-select>
+											<ng-select [items]="ticketStatus" class="plr-5"  [clearable]="false"  bindLabel="status"  bindValue="id" (change)="update(i.status,'status',i.id,i.user_id)" [(ngModel)]="i.status"></ng-select>
+											<!--<ng-select [items]="agents" class="plr-5"  [clearable]="false"  bindLabel="assignee"  bindValue="id" [(ngModel)]="i.assignee"></ng-select>-->
+											<ng-select #api  class="plr-5" [(ngModel)]="i.assignee" [clearable]="false" (change)="update(i.assignee,'assignee',i.id,i.assignee)"  >
+											<ng-option *ngFor="let i of agents" [value]="i.id">{{i.assignee}}</ng-option>
+											<ng-template ng-header-tmp>
+											<input style="width: 100%;line-height: 28px; color:#000; padding:4px; border:none" placeholder="Search .." type="text" (input)="api.filter($event.target.value)" />
+											</ng-template>
+											</ng-select>
+										</div>
+									</div>
+									<div class="panel-body row">
+										<div class="col-lg-1 col-md-2 col-sm-2 nopad">
+											<span class="avatar">
+											<img *ngIf="i.profile_pic" class="main-avatar" src="http://192.168.0.10/uploadpics/{{i.profile_pic}}" alt="...">
+											<img *ngIf="!i.profile_pic" class="main-avatar" src="{{url}}" alt="...">
+											<h6 class="m-1 mob-in">{{i.user_name  | truncate : 6 }}</h6>
+											</span>
+										</div>
+										<div class="col-lg-11 col-md-10 col-md-10 p-5 pointer" (click)="detail(i.id)" >
+											<h5>{{i.subject}}</h5>
+											<small>Created : {{i.created_date | timeDiff }}</small>
+										</div>
+									</div>
+									<div class="ribbon ribbon-clip ribbon-reverse ribbon-bottom ribbon-warning" *ngIf="i.status==1">
+										<span class="ribbon-inner" >Open</span>
+										</div>
+									<div class="ribbon ribbon-clip ribbon-reverse ribbon-bottom ribbon-danger" *ngIf="i.status==2">
+										<span class="ribbon-inner" >Closed</span>
+									</div>
+									<div class="ribbon ribbon-clip ribbon-reverse ribbon-bottom ribbon-success" *ngIf="i.status==3">
+										<span class="ribbon-inner" >Resolved</span>
+									</div>
+								</div>
+							</div>
+						</div>
+	                  </div>
+	                  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 mb-10 pr-15" [ngClass]="{'animation-slide-right':_opened}" *ngIf="_opened">
+							<div class="p-15 sidebar" >
+								<div class="row pl-18 fs-18"><b>Filters</b></div>
+								<!--<div class="mt-5">
+									<span class="p-3 fs-13">Teams</span>
+									<ng-select [items]="teams"  (change)="filter(selectedTeam,'team')" class="mt-3" [multiple]="true" [clearable]="false" bindLabel="name"  bindValue="name" [(ngModel)]="selectedTeam"></ng-select>
+								</div>-->
+								<div class="mt-5">
+									<span class="p-3 fs-13">Status</span>
+									<ng-select [items]="ticketStatus"  (change)="filter(selectedStatus,'status')" class="mt-3" [multiple]="true" [clearable]="false" bindLabel="status"  bindValue="id" [(ngModel)]="selectedStatus"></ng-select>
+								</div>
+								<div class="mt-5">
+									<span class="p-3 fs-13">Priority</span>
+									<ng-select [items]="priorities"  (change)="filter(selectedPriority,'priorities')" class="mt-3" [multiple]="true" [clearable]="false" bindLabel="priority"  bindValue="priority" [(ngModel)]="selectedPriority"></ng-select>
+								</div>
+								<div class="mt-5">
+									<span class="p-3 fs-13">Agents</span>
+									<ng-select [items]="agents"  (change)="filter(selectedAgent,'agent')" class="mt-3" [multiple]="true" [clearable]="false" bindLabel="assignee"  bindValue="id" [(ngModel)]="selectedAgent"></ng-select>
+								</div>
+							<!--	<div class="mt-5">
+									<span class="p-3 fs-13">Tags</span>
+									<ng-select [items]="priorities"  (change)="filter(selectedpriority)" class="mt-3" [multiple]="true" [clearable]="false" bindLabel="priority"  bindValue="priority" [(ngModel)]="selectedPersonId"></ng-select>
+								</div>
+								<div class="mt-5">
+									<span class="p-3 fs-13">Created Date</span>
+									<my-date-picker name="mydate" (dateChanged)="filter($event,'date');" [options]="myDatePickerOptions"
+									[(ngModel)]="createdDate" required></my-date-picker>
+								</div>-->
+							</div>
+						</div>
+	                </div> 
+                </div>
+              </div>
+        </div>
+        <div class="row back p-10 mt-10 paginationControl">
+			<div class="col-12 text-right">
+				<pagination-controls class="paginationctrl" (pageChange)="p = $event"></pagination-controls>
+			</div>	
+		</div>
+      </div>
+</div>   
+
+<!-- Modal -->
+<div class="modal fade modal-fill-in" id="exampleFillIn" aria-hidden="false" aria-labelledby="exampleFillIn"
+  role="dialog" tabindex="-1">
+  <div class="modal-dialog modal-simple">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+        <h4 class="modal-title" id="exampleFillInModalTitle">Set The Messages</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <div class="col-xl-4 form-group">
+              <input type="text" class="form-control" name="firstName" placeholder="First Name">
+            </div>
+            <div class="col-xl-4 form-group">
+              <input type="email" class="form-control" name="lastName" placeholder="Last Name">
+            </div>
+            <div class="col-xl-4 form-group">
+              <input type="email" class="form-control" name="email" placeholder="Your Email">
+            </div>
+            <div class="col-xl-12">
+              <textarea class="form-control" rows="5" placeholder="Type your message"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
+    <!-- End Page -->
+
+
+    <!-- Footer
+    <footer class="site-footer">
+      <div class="site-footer-legal">© 2018 <a href="http://themeforest.net/item/remark-responsive-bootstrap-admin-template/11989202">Remark</a></div>
+      <div class="site-footer-right">
+        Crafted with <i class="red-600 icon md-favorite"></i> by <a href="https://themeforest.net/user/creation-studio">Creation Studio</a>
+      </div>
+    </footer>  -->
+    <!-- Core  -->
+     <script>
+      (function(document, window, $){
+        'use strict';
+    
+        var Site = window.Site;
+        $(document).ready(function(){
+          Site.run();
+        });
+      })(document, window, jQuery);
+    </script>

@@ -1,0 +1,183 @@
+<div class="container p-20">
+    <div class="card p-5 mb-10 pl-10">
+        <h4> Reports </h4>
+    </div>
+	<div class="row">
+		<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6">
+        	<div class="card card-inverse card-shadow bg-white mb-10">
+	        	<div class="card-block p-20 text-center" [ngClass]="{'border_rpt':report_types=='run_rpt'}" (click)="report_types='run_rpt'; result=false">
+		          	<div class="text-center">
+	                   <div class="text-center">
+		                  <i class="icon md-assignment"></i>
+		                </div>
+		            </div>
+		            <div class="vertical-align-middle">
+		                <div class="font-size-14 text-truncate pt-3">Run Report</div>
+		        	</div>
+		      	</div>
+            </div>
+    	</div>
+    	<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6">
+        	<div class="card card-inverse card-shadow bg-white mb-15">
+	        	<div class="card-block p-20 text-center" [ngClass]="{'border_rpt':report_types=='cust_satisfaction'}" (click)="report_types='cust_satisfaction' ; result=false">
+		          	<div class="text-center">
+		                <div class="text-center">
+		                  <i class="icon md-mood"></i>
+		                </div>
+		            </div>
+		            <div class="vertical-align-middle">
+		                <div class="font-size-14 text-truncate pt-3">Customer Satisfaction</div>
+		        	</div>
+		      	</div>
+            </div>
+    	</div>
+    	<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6">
+        	<div class="card card-inverse card-shadow bg-white  mb-15">
+	        	<div class="card-block p-20 text-center" [ngClass]="{'border_rpt':report_types=='agent_performance'}" (click)="report_types='agent_performance'; result=false">
+		          	<div class="text-center">
+		                <div class="text-center">
+		                  <i class="icon md-account"></i>
+		                </div>
+		            </div>
+		            <div class="vertical-align-middle">
+		                <div class="font-size-14 text-truncate pt-3">Agent Performance</div>
+		        	</div>
+		      	</div>
+            </div>
+    	</div>
+		<div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-6">
+        	<div class="card card-inverse card-shadow bg-white  mb-15">
+	        	<div class="card-block p-20 text-center" [ngClass]="{'border_rpt':report_types=='byCategory_performance'}" (click)="report_types='byCategory_performance'; result=false">
+		          	<div class="text-center">
+		                <div class="text-center">
+		                  <i class="icon md-account"></i>
+		                </div>
+		            </div>
+		            <div class="vertical-align-middle">
+		                <div class="font-size-14 text-truncate pt-3"> Report By Category</div>
+		        	</div>
+		      	</div>
+            </div>
+    	</div>
+    	
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel mb-10">
+				<div class="panel-body p-15">
+					<div [ngSwitch]="report_types">
+						<ng-template [ngSwitchCase]= "'run_rpt'" ngSwitchDefault>
+							<form #rpt_per_user = "ngForm" (ngSubmit) ="runReport(rpt_per_user.value)">
+								<h4>Run Report</h4>
+							 	<div class="row mt-20">
+					 				<div class="form-group form-material col-md-3">
+						 				<label>From</label>
+						 				<my-date-picker name="from_date" [(ngModel)]="from_date" [options]="myDatePickerOptions" required></my-date-picker>	
+						 			</div>
+					    		
+					    			<div class=" form-group form-material col-md-3">
+				    					<label>To</label>
+					    				<my-date-picker name="to_date" [(ngModel)]="to_date" [options]="myDatePickerOptions" required></my-date-picker>
+				                	</div>
+				        	 	</div>
+			        			<div class="form-group">
+				                	<button type="submit" [disabled]="!from_date || !to_date" class="btn btn-primary waves-effect waves-classic">Display Report</button>
+			              		</div>
+		              		</form>
+						 </ng-template>
+						 <ng-template [ngSwitchCase]= "'cust_satisfaction'">
+					 		<form #rpt_cust = "ngForm" (ngSubmit) ="custSatisfication(rpt_cust.value)">
+					 			<h4>Customer Satisfaction Report</h4>
+							 	<div class="row mt-20">
+					 				<div class="form-group form-material col-md-3">
+						 				<label>From</label>
+						 				<my-date-picker name="cust_from_date" [(ngModel)]="cust_from_date" [options]="myDatePickerOptions" required></my-date-picker>	
+						 			</div>
+					    		
+					    			<div class=" form-group form-material col-md-3">
+				    					<label>To</label>
+					    				<my-date-picker name="cust_to_date" [(ngModel)]="cust_to_date" [options]="myDatePickerOptions" required></my-date-picker>
+				                	</div>
+				        	 	</div>
+			        			<div class="form-group">
+				                	<button type="submit" [disabled]="!cust_from_date || !cust_to_date" class="btn btn-primary waves-effect waves-classic">Display Report</button>
+			              		</div>
+		              		</form>
+						 </ng-template>
+						 <ng-template [ngSwitchCase]= "'agent_performance'">
+						 	<div>
+					 			<form #rpt_per_user = "ngForm" (ngSubmit) ="agentReport(rpt_per_user.value,'agent')">
+					 				<h4>Agent Performance</h4>
+								 	<div class="row mt-20">
+						 				<div class="form-group form-material col-md-3">
+							 				<label>From</label>
+							 				<my-date-picker name="fromdate" [(ngModel)]="fromdate" [options]="myDatePickerOptions" required></my-date-picker>	
+							 			</div>
+						    		
+						    			<div class=" form-group form-material col-md-3">
+					    					<label>To</label>
+						    				<my-date-picker name="todate" [(ngModel)]="todate" [options]="myDatePickerOptions" required></my-date-picker>
+					                	</div>
+					        	 	</div>
+				        	 		<div class="form-group">
+					                	<button type="submit" [disabled]="!fromdate || !todate" class="btn btn-primary waves-effect waves-classic">Display Report</button>
+				              		</div>
+			              		</form>
+						 	</div>
+						 </ng-template>
+						 	 <ng-template [ngSwitchCase]= "'byCategory_performance'">
+						 	<div>
+					 			<form #rpt_per_user = "ngForm" (ngSubmit) ="agentReport(rpt_per_user.value,'category')">
+					 				<h4>By Category Performance</h4>
+								 	<div class="row mt-20">
+						 				<div class="form-group form-material col-md-3">
+							 				<label>From</label>
+							 				<my-date-picker name="fromdate" [(ngModel)]="cat_fromdate" [options]="myDatePickerOptions" required></my-date-picker>	
+							 			</div>
+						    		
+						    			<div class=" form-group form-material col-md-3">
+					    					<label>To</label>
+						    				<my-date-picker name="todate" [(ngModel)]="cat_todate" [options]="myDatePickerOptions" required></my-date-picker>
+					                	</div>
+					        	 	</div>
+ 									<div class="form-group">
+					                	<button type="submit" [disabled]="!cat_fromdate || !cat_todate" class="btn btn-primary waves-effect waves-classic">Display Report</button>
+				              		</div>
+			              		</form>
+						 	</div>
+						 </ng-template>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mt-10" *ngIf="result">
+		<div class="col-lg-2 col-md-2 col-sm-2 col-2">
+			<span class="ml-20"> <b> Results : </b></span>
+		</div>
+		<div class="col-lg-10 col-md-10 col-sm-10 col-10 pt-5 text-right">
+			<pagination-controls class="m-10" (pageChange)="p = $event"></pagination-controls>
+		</div>
+		
+		<div class="table-responsive card m-20">
+			<h4 *ngIf="empty" class="p-10"> No records Found ...  </h4>
+	        <table class="table" *ngIf="rptData">
+        		<thead  class="thead" *ngFor="let item of rptData;let k=index" [ngClass]="{'hidden': k >= 1}">
+        			<tr class="text-center">
+        				<th  *ngFor="let i of item | keys ">
+							<b >{{i.key | titlecase }}</b>
+						</th>
+			  		</tr> 
+	        	</thead>
+	        	<tbody>
+	            	<tr class="text-center" *ngFor="let item of rptData | paginate: { itemsPerPage: 8, currentPage: p }">
+						<td *ngFor="let i of item | keys ">
+						<b>{{i.value}}</b>
+						</td>
+	            	</tr>
+	          </tbody>
+	       </table>
+	  	</div>
+	</div>
+</div>
